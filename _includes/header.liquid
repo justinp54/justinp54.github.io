@@ -99,7 +99,37 @@
                 </li>
               {% else %}
                 {% assign parent_link = p.permalink | remove: 'index.html' %}
-                <li class="nav-item {% if page.url contains parent_link %}active{% endif %}">
+                {% assign is_review_post = page.collection == 'reviews' or page.url contains '/reviews/' %}
+                
+                {% assign should_be_active = false %}
+                
+                {% comment %} Journal 특수 처리: reviews 포스트일 때는 절대 활성화하지 않음 {% endcomment %}
+                {% if p.permalink == '/blog/' %}
+                  {% if is_review_post %}
+                    {% assign should_be_active = false %}
+                  {% elsif page.permalink == '/blog/' %}
+                    {% assign should_be_active = true %}
+                  {% else %}
+                    {% assign should_be_active = false %}
+                  {% endif %}
+                {% comment %} Paper Reviews 특수 처리: reviews 페이지이거나 reviews collection 포스트일 때 활성화 {% endcomment %}
+                {% elsif p.permalink == '/reviews/' %}
+                  {% if is_review_post or page.permalink == '/reviews/' %}
+                    {% assign should_be_active = true %}
+                  {% else %}
+                    {% assign should_be_active = false %}
+                  {% endif %}
+                {% comment %} 다른 페이지: 기본 활성화 로직 (Journal 제외) {% endcomment %}
+                {% else %}
+                  {% comment %} Journal이 아닐 때만 기본 로직 사용 {% endcomment %}
+                  {% unless p.permalink == '/blog/' %}
+                    {% if page.url contains parent_link %}
+                      {% assign should_be_active = true %}
+                    {% endif %}
+                  {% endunless %}
+                {% endif %}
+                
+                <li class="nav-item {% if should_be_active %}active{% endif %}">
                   {%- if p.permalink contains '://' -%}
                     {%- assign url = p.permalink -%}
                   {%- elsif p.permalink contains '/blog/' -%}
@@ -109,7 +139,7 @@
                   {%- endif %}
                   <a class="nav-link" href="{{ url | relative_url }}">
                     {{- p.title }}
-                    {% if page.url contains p.url %}
+                    {% if should_be_active %}
                       <span class="sr-only">(current)</span>
                     {% endif %}
                   </a>

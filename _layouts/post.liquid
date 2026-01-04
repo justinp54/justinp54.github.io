@@ -5,6 +5,10 @@ layout: default
 {% assign tags = page.tags | join: '' %}
 {% assign categories = page.categories | join: '' %}
 {% assign url_beginning = page.url | slice: 0, 6 %}
+{% assign is_paper_review = false %}
+{% if page.collection == 'reviews' or page.categories contains 'paper-review' %}
+  {% assign is_paper_review = true %}
+{% endif %}
 
 {% if page._styles %}
   <!-- Page/Post style -->
@@ -12,6 +16,37 @@ layout: default
     {{ page._styles }}
   </style>
 {% endif %}
+
+<style>
+  /* Post title size reduction */
+  .post-header h1.post-title {
+    font-size: 1.75rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Post content heading sizes (일반 포스트용) */
+  .post-content:not(.paper-review) h1 {
+    font-size: 1.75rem !important;
+    font-weight: 600 !important;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .post-content:not(.paper-review) h2 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .post-content:not(.paper-review) h3 {
+    font-size: 1.25rem !important;
+    font-weight: 500 !important;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+</style>
 
 <div class="post">
   <header class="post-header">
@@ -23,7 +58,9 @@ layout: default
       {% if page.meta %}• {{ page.meta }}{% endif %}
     </p>
     <p class="post-tags">
-      {% if url_beginning == '/blog/' %}
+      {% if is_paper_review or page.collection == 'reviews' %}
+        <a href="{{ year | prepend: '/reviews/' | relative_url }}"> <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
+      {% elsif url_beginning == '/blog/' %}
         <a href="{{ year | prepend: '/blog/' | relative_url }}"> <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
       {% else %}
         <i class="fa-solid fa-calendar fa-sm"></i> {{ year }}
@@ -31,7 +68,9 @@ layout: default
       {% if tags != '' %}
         &nbsp; &middot; &nbsp;
         {% for tag in page.tags %}
-          {% if url_beginning == '/blog/' %}
+          {% if is_paper_review or page.collection == 'reviews' %}
+            <a href="{{ tag | slugify | prepend: '/reviews/tag/' | relative_url }}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
+          {% elsif url_beginning == '/blog/' %}
             <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
           {% else %}
             <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}
@@ -45,7 +84,9 @@ layout: default
       {% if categories != '' %}
         &nbsp; &middot; &nbsp;
         {% for category in page.categories %}
-          {% if url_beginning == '/blog/' %}
+          {% if is_paper_review or page.collection == 'reviews' %}
+            <a href="{{ category | slugify | prepend: '/reviews/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}</a>
+          {% elsif url_beginning == '/blog/' %}
             <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}</a>
           {% else %}
             <i class="fa-solid fa-tag fa-sm"></i> {{ category }}
@@ -58,8 +99,16 @@ layout: default
     </p>
   </header>
 
-  <article class="post-content">
-    {% if page.toc and page.toc.beginning %}
+  <article class="post-content{% if is_paper_review %} paper-review{% endif %}">
+    {% if is_paper_review %}
+      {% unless page.toc == false %}
+        <div id="table-of-contents" class="paper-review-toc">
+          <h3>Contents</h3>
+          {% toc %}
+        </div>
+        <hr>
+      {% endunless %}
+    {% elsif page.toc and page.toc.beginning %}
       <div id="table-of-contents">
         {% toc %}
       </div>
