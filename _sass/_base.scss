@@ -1496,3 +1496,124 @@ figure.cover {
 mjx-container[jax="CHTML"][display="true"] {
   overflow-x: auto;
 }
+
+// Identity Header (About page)
+.identity-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--global-divider-color);
+
+  .identity-photo {
+    flex-shrink: 0;
+    width: 180px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  }
+
+  .identity-info {
+    flex: 1;
+    min-width: 0;
+
+    .identity-name {
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.2;
+      color: var(--global-text-color);
+    }
+
+    .identity-subtitle {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--global-text-color);
+      margin-bottom: 1rem;
+
+      strong {
+        font-weight: 500;
+      }
+    }
+
+    .identity-social {
+      margin-top: 1rem;
+
+      .contact-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+
+        a {
+          color: var(--global-text-color);
+          font-size: 1.25rem;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: var(--global-theme-color);
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .identity-photo {
+      width: 150px;
+      margin: 0 auto;
+    }
+
+    .identity-info {
+      text-align: center;
+
+      .identity-name {
+        font-size: 1.75rem;
+      }
+
+      .identity-social {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// About page content styling
+.about-content {
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  // Make bold labels (replacing H2) look like labels, not headings
+  p strong:first-child {
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  ul {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.7;
+
+      strong {
+        font-weight: 500;
+      }
+    }
+  }
+}
