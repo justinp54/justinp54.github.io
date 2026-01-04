@@ -1524,10 +1524,14 @@ mjx-container[jax="CHTML"][display="true"] {
 
     .identity-name {
       font-size: 2rem;
-      font-weight: 600;
+      font-weight: 300; // 기본 weight는 normal
       margin: 0 0 0.5rem 0;
       line-height: 1.2;
       color: var(--global-text-color);
+
+      .font-weight-bold {
+        font-weight: 600; // first_name만 bold
+      }
     }
 
     .identity-subtitle {
