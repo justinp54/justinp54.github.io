@@ -183,3 +183,36 @@
   opacity: 1;
   transform: none;
 }
+
+// 모바일에서는 패널을 위아래로 쌓고 카드 폭 제한을 푼다
+@media (max-width: $bp-mobile-lg) {
+  .panel,
+  .panel-right,
+  .panel-hero {
+    justify-content: flex-start;
+  }
+
+  .panel-copy,
+  .panel-card {
+    max-width: none;
+    width: 100%;
+  }
+
+  .scroll-cue {
+    margin-top: $space-xl;
+  }
+}
+
+// 태블릿에서는 카드 폭만 조금 줄인다
+@media (min-width: $bp-mobile-lg) and (max-width: $bp-tablet) {
+  .panel-card {
+    max-width: 28rem;
+  }
+}
+
+// 3D 무대는 움직임을 줄이는 설정에서 정지 상태로 둔다
+@media (prefers-reduced-motion: reduce) {
+  .landing-stage {
+    display: none;
+  }
+}
