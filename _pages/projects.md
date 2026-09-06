@@ -3,7 +3,7 @@ layout: page
 title: Projects
 permalink: /projects/
 description: A growing collection of your cool projects.
-nav: true
+nav: false # TODO: 데모 프로젝트를 실제 프로젝트로 교체 후 true로 복구
 nav_order: 3
 display_categories: [work, fun]
 horizontal: false

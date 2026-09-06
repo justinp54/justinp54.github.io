@@ -591,9 +591,36 @@ footer.sticky-bottom {
   }
 }
 
-.post-title {
+.post-header h1.post-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+
   mjx-container[jax="CHTML"][display="true"] {
     display: unset;
+  }
+}
+
+.post-content:not(.paper-review) {
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
   }
 }
 

@@ -2,7 +2,7 @@
 layout: default
 permalink: /blog/
 title: Journal
-nav: true
+nav: false # TODO: 첫 포스트 작성 후 true로 복구
 nav_order: 4
 pagination:
   enabled: true
