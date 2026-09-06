@@ -2,7 +2,7 @@
 layout: default
 permalink: /blog/
 title: Journal
-nav: false # TODO: 첫 포스트 작성 후 true로 복구
+nav: false # 첫 포스트를 쓰면 true로 바꾼다
 nav_order: 4
 pagination:
   enabled: true
