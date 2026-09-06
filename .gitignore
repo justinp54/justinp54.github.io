@@ -12,3 +12,9 @@ node_modules/
 vendor
 .idea
 .venv
+
+# tooling state
+.omc/
+_pages/.omc/
+.impeccable/
+.claude/
