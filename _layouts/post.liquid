@@ -17,37 +17,6 @@ layout: default
   </style>
 {% endif %}
 
-<style>
-  /* Post title size reduction */
-  .post-header h1.post-title {
-    font-size: 1.75rem !important;
-    font-weight: 600 !important;
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Post content heading sizes (일반 포스트용) */
-  .post-content:not(.paper-review) h1 {
-    font-size: 1.75rem !important;
-    font-weight: 600 !important;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .post-content:not(.paper-review) h2 {
-    font-size: 1.5rem !important;
-    font-weight: 600 !important;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .post-content:not(.paper-review) h3 {
-    font-size: 1.25rem !important;
-    font-weight: 500 !important;
-    margin-top: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-</style>
-
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
@@ -100,15 +69,7 @@ layout: default
   </header>
 
   <article class="post-content{% if is_paper_review %} paper-review{% endif %}">
-    {% if is_paper_review %}
-      {% unless page.toc == false %}
-        <div id="table-of-contents" class="paper-review-toc">
-          <h3>Contents</h3>
-          {% toc %}
-        </div>
-        <hr>
-      {% endunless %}
-    {% elsif page.toc and page.toc.beginning %}
+    {% if page.toc and page.toc.beginning %}
       <div id="table-of-contents">
         {% toc %}
       </div>

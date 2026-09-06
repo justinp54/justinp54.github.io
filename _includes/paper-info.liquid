@@ -1,0 +1,31 @@
+<div class="paper-info-block">
+  {% if include.conference %}
+  <p class="paper-info-conference">{{ include.conference }}</p>
+  {% endif %}
+  
+  {% if include.authors %}
+  <p class="paper-info-authors"><strong>{{ include.authors }}</strong></p>
+  {% endif %}
+  
+  {% if include.institution %}
+  <p class="paper-info-institution">{{ include.institution }}</p>
+  {% endif %}
+  
+  <p class="paper-info-links">
+    {% if include.paper_url %}
+    <a href="{{ include.paper_url }}">[Paper]</a>
+    {% endif %}
+    
+    {% if include.github_url %}
+    <a href="{{ include.github_url }}">[Github]</a>
+    {% endif %}
+    
+    {% if include.project_url %}
+    <a href="{{ include.project_url }}">[Project]</a>
+    {% endif %}
+  </p>
+  
+  {% if include.date %}
+  <p class="paper-info-date">{{ include.date }}</p>
+  {% endif %}
+</div>

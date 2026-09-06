@@ -86,7 +86,8 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     
     // 첫 번째 줄: Venue/Year (약하게)
-    > p:first-child {
+    > p:first-child,
+    > .paper-info-conference {
       margin: 0 0 0.3rem 0;
       color: var(--global-text-color-light);
       font-weight: 400;
@@ -99,7 +100,8 @@
     }
     
     // 두 번째 줄: Authors (주)
-    > p:nth-child(2) {
+    > p:nth-child(2),
+    > .paper-info-authors {
       margin: 0 0 0.3rem 0;
       font-weight: 500;
       font-size: 1rem; // 16px (기본 15px에서 증가)
@@ -111,7 +113,8 @@
     }
     
     // 세 번째 줄: Affiliation (약하게)
-    > p:nth-child(3) {
+    > p:nth-child(3),
+    > .paper-info-institution {
       margin: 0 0 0.4rem 0;
       color: var(--global-text-color-light);
       font-weight: 400;
@@ -121,10 +124,14 @@
         font-weight: 400;
         color: var(--global-text-color-light);
       }
+      
+      // institution 구분자 스타일링 (e.g., "Org1|Org2|Org3")
+      // 자동으로 | 를 약간 밝게 처리
     }
     
     // 네 번째 줄: Links (보조)
-    > p:nth-child(4) {
+    > p:nth-child(4),
+    > .paper-info-links {
       margin: 0;
       
       a {
@@ -147,7 +154,8 @@
     }
     
     // 다섯 번째 줄: Date (약하게)
-    > p:nth-child(5) {
+    > p:nth-child(5),
+    > .paper-info-date {
       margin: 0.3rem 0 0 0;
       color: var(--global-text-color-light);
       font-weight: 400;
