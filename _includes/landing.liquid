@@ -9,8 +9,9 @@
       <p class="label">Undergraduate researcher &middot; Seoul National University</p>
       <h1 class="hero-title">Junsang Park</h1>
       <p class="hero-lead">
-        I study protein structure and protein&ndash;ligand interactions, and how machine learning can model them. This site is the working record: how
-        I read papers, work through equations, interpret algorithms, and gradually build research ideas.
+        I study <strong>protein structure and protein&ndash;ligand interactions</strong>, and how <strong>machine learning</strong> can model them.
+        This site is the <strong>working record</strong>: how I read papers, work through equations, interpret algorithms, and gradually build
+        research ideas.
       </p>
       <p class="hero-meta">
         <span class="mono">B.S. Chemical and Biological Engineering</span>
@@ -47,8 +48,8 @@
       <p class="label">01 &mdash; Research</p>
       <h2 class="panel-title">What I work on</h2>
       <p class="panel-body">
-        Proteins do their work by moving. I study how structure and conformational dynamics decide what a protein binds and how it passes a signal on,
-        and how machine learning can predict both.
+        Proteins do their work by moving. I study how <strong>structure and conformational dynamics</strong> decide what a protein binds and how it
+        passes a signal on, and how machine learning can predict both.
       </p>
 
       <h3 class="sub-label">Research interests</h3>
@@ -99,8 +100,8 @@
       <p class="label">02 &mdash; Paper Reviews</p>
       <h2 class="panel-title">Notes on papers I read</h2>
       <p class="panel-body">
-        Structured reading notes on machine learning and bioinformatics papers, from the problem setting through the equations to what the results
-        show.
+        <strong>Structured reading notes</strong> on machine learning and bioinformatics papers, from the problem setting through the equations to
+        what the results show.
       </p>
       {% if recent_reviews.size > 0 %}
         <ul class="record-list">
@@ -123,7 +124,7 @@
     <section class="panel" id="journal" data-stage="dispersal" data-morph="0.8">
       <p class="label">03 &mdash; Journal</p>
       <h2 class="panel-title">Shorter notes, work in progress</h2>
-      <p class="panel-body">Short, informal entries on my study process, experiments, and occasional side interests.</p>
+      <p class="panel-body"><strong>Short, informal entries</strong> on my study process, experiments, and occasional side interests.</p>
       {% if recent_posts.size > 0 %}
         <ul class="record-list">
           {% for post in recent_posts limit: 3 %}
@@ -147,7 +148,7 @@
           {% for item in recent_news limit: 4 %}
             <div>
               <dt class="mono">{{ item.date | date: '%Y.%m' }}</dt>
-              <dd>{{ item.content | strip_html | strip | truncate: 120 }}</dd>
+              <dd>{{ item.content | strip_html | strip | truncatewords: 22 }}</dd>
             </div>
           {% endfor %}
         </dl>
