@@ -13,22 +13,36 @@
   contents:
     - title: B.S. in Chemical and Biological Engineering
       institution: Seoul National University, Seoul, South Korea
-      year: 2023 - present
+      year: Mar 2023 - present
       description:
         - Minor in Computer Science and Engineering
-    - title: Graduate
-      institution: Daejeon Science High School for the Gifted, Daejeon, South Korea
-      year: 2020 - 2023
+        - "GPA: 4.26/4.30 (overall) &middot; 4.25/4.30 (major) &middot; 4.25/4.30 (minor)"
+        - "Relevant courses: Deep Learning (graduate), Computer Vision, Molecular Biochemical Engineering"
+    - title: Daejeon Science High School for the Gifted
+      institution: Daejeon, South Korea
+      year: Mar 2020 - Feb 2023
+      description:
+        - Specialized high school for gifted students in science and mathematics
+        - Graduated with Academic Excellence Award
 
-- title: Experience
+- title: Research Experience
   type: time_table
   contents:
-    - title: Research Intern
-      institution: SNU Computational Biology Lab (Advisor — Prof. Chaok Seok)
-      year: 2026 - present
+    - title: Undergraduate Researcher
+      institution: Computational Biology Laboratory, SNU (Advisor&#58; Prof. Chaok Seok)
+      year: Feb 2026 - present
+      description:
+        - "Topic: structure-based machine learning for understanding dynamic biomolecular behavior"
+        - Investigating structural determinants of GPCR agonism and antagonism and their coupling to receptor conformational dynamics
+        - Contributing to protein-ligand complex modeling for the CASP17 Ligand Prediction category
+        - Initiating a study of the structural and dynamic basis of CBAD-mediated regulation in IL-17RA signaling
     - title: Undergraduate Researcher (UROP)
-      institution: SNU Biomedical & Health Informatics Lab (Advisor — Prof. Sun Kim)
-      year: 2025
+      institution: Biomedical & Health Informatics Laboratory, SNU (Advisor&#58; Prof. Sun Kim)
+      year: Sep 2025 - Jan 2026
+      description:
+        - "Topic: protein language model-guided antibody engineering and mutation effect prediction"
+        - Contributed to an ESM-based protein language model pipeline that proposes sequence mutations via ensemble voting
+        - Supported implementation and evaluation of the AbAgNet ddG predictor for mutation-induced changes in antibody-antigen binding affinity
 
 - title: Scholarships & Honors
   type: time_table
