@@ -2,10 +2,10 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: A growing collection of your cool projects.
-nav: false # TODO: 데모 프로젝트를 실제 프로젝트로 교체 후 true로 복구
+description: Research, course and personal projects.
+nav: true
 nav_order: 3
-display_categories: [work, fun]
+display_categories: [work]
 horizontal: false
 ---
 
