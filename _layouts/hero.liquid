@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+  <head>
+    {% include head.liquid %}
+  </head>
+
+  <body class="landing-body {% if site.navbar_fixed %}fixed-top-nav{% endif %}">
+    {% include header.liquid %}
+
+    <!-- 3D 무대는 모든 패널 뒤에 고정되어 스크롤에 따라 변한다 -->
+    <div class="landing-stage" data-landing-stage aria-hidden="true"></div>
+
+    <main class="landing" role="main">{{ content }}</main>
+
+    {% include footer.liquid %}
+    {% include scripts.liquid %}
+  </body>
+</html>

@@ -1,7 +1,9 @@
 ---
 layout: about
 title: About
-permalink: /
+nav: true
+nav_order: 6
+permalink: /about/
 subtitle: >
   Undergraduate student at <strong>Seoul National University</strong><br>
   Major in <strong>Chemical and Biological Engineering</strong>; Minor in <strong>Computer Science and Engineering</strong>

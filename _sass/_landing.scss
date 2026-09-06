@@ -1,0 +1,178 @@
+/*******************************************************************************
+ * 랜딩 페이지. 스크롤에 따라 패널이 지나가고 배경의 3D 무대가 함께 변한다.
+ ******************************************************************************/
+
+.landing-body {
+  background-color: var(--global-bg-color);
+}
+
+// 3D 무대는 화면에 고정되어 모든 패널 뒤에 깔린다
+.landing-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.landing {
+  position: relative;
+  z-index: 1;
+}
+
+.panel {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: $space-section $space-lg;
+  max-width: $landing-max-width;
+  margin: 0 auto;
+
+  @media (max-width: $bp-mobile-lg) {
+    min-height: auto;
+    padding: $space-xxl $space-md;
+  }
+}
+
+.panel-right {
+  justify-content: flex-end;
+}
+
+.panel-hero {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.panel-copy {
+  max-width: 46rem;
+}
+
+.panel-card {
+  max-width: 34rem;
+  padding: $space-xl;
+  border: 1px solid var(--global-divider-color);
+  border-radius: $radius-lg;
+  background-color: var(--global-bg-color);
+
+  @media (max-width: $bp-mobile-lg) {
+    padding: $space-lg;
+    max-width: none;
+  }
+}
+
+.eyebrow {
+  @include type-eyebrow;
+  margin-bottom: $space-sm;
+  color: var(--global-theme-color);
+}
+
+.display-xl {
+  @include type-display-xl;
+  margin-bottom: $space-lg;
+  color: var(--global-text-color);
+}
+
+.display-lg {
+  @include type-display-lg;
+  margin-bottom: $space-md;
+  color: var(--global-text-color);
+}
+
+.title-line {
+  display: block;
+}
+
+.panel-lead {
+  font-size: $type-body-lg-size;
+  line-height: $type-body-leading;
+  color: var(--global-text-color-light);
+  max-width: 38rem;
+}
+
+.panel-card p {
+  font-size: $type-body-size;
+  line-height: $type-body-leading;
+  color: var(--global-text-color-light);
+  margin-bottom: $space-md;
+}
+
+.panel-focus {
+  padding-left: $space-md;
+  border-left: 2px solid var(--global-theme-color);
+}
+
+.panel-list,
+.panel-news {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $space-lg;
+}
+
+.panel-list li,
+.panel-news li {
+  padding: $space-xs 0;
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.panel-list a {
+  display: block;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.panel-list span,
+.panel-news .news-body {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--global-text-color-light);
+}
+
+.panel-news .news-date {
+  @include type-eyebrow;
+  display: block;
+  color: var(--global-theme-color);
+}
+
+.panel-links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.panel-links a {
+  margin-right: $space-lg;
+  margin-bottom: $space-xs;
+  font-weight: 500;
+}
+
+.panel-contact a {
+  margin-right: $space-md;
+}
+
+.panel-empty {
+  font-style: italic;
+}
+
+.scroll-cue {
+  margin-top: $space-xxl;
+  font-size: 1.5rem;
+  color: var(--global-text-color-light);
+  animation: landing-cue 2s ease-in-out infinite;
+}
+
+@keyframes landing-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.4rem);
+  }
+}
+
+// 움직임을 줄이도록 설정한 사용자에게는 애니메이션을 멈춘다
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+  }
+}
