@@ -1,47 +1,51 @@
-// 랜딩 스크롤 연출. GSAP ScrollTrigger로 패널이 들어올 때 나타나게 하고,
-// 스크롤 진행도를 무대에 전달해 3D 연출이 따라오게 한다.
+// 랜딩 스크롤 연출. 인덱스 활성 표시를 갱신하고, 스크롤 진행도를 3D 무대에 전달한다.
 (function () {
   const stage = document.querySelector("[data-landing-stage]");
-  const panels = Array.from(document.querySelectorAll(".panel"));
+  const panels = Array.from(document.querySelectorAll(".hero, .panel"));
+  const indexLinks = Array.from(document.querySelectorAll(".landing-index a"));
   if (panels.length === 0) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // 움직임을 줄이도록 설정한 사용자에게는 애니메이션 없이 최종 상태만 보여준다
-  if (reduceMotion || typeof window.gsap === "undefined") {
-    panels.forEach((panel) => panel.classList.add("is-visible"));
-    return;
-  }
+  const setActiveIndex = (id) => {
+    indexLinks.forEach((link) => link.classList.toggle("is-active", link.dataset.index === id));
+  };
+
+  // 어느 섹션을 보고 있는지 표시하는 것은 애니메이션과 무관하므로 항상 동작시킨다
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActiveIndex(entry.target.id);
+      });
+    },
+    { rootMargin: "-40% 0px -55% 0px" }
+  );
+  panels.forEach((panel) => panel.id && observer.observe(panel));
+
+  if (reduceMotion || typeof window.gsap === "undefined") return;
 
   const gsap = window.gsap;
   gsap.registerPlugin(window.ScrollTrigger);
 
   panels.forEach((panel) => {
-    const target = panel.querySelector(".panel-card, .panel-copy");
-    if (!target) return;
-
+    if (panel.classList.contains("hero")) return;
     gsap.fromTo(
-      target,
-      { opacity: 0, y: 32 },
+      panel.children,
+      { opacity: 0, y: 20 },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.6,
         ease: "power2.out",
-        scrollTrigger: { trigger: panel, start: "top 75%", once: true },
+        stagger: 0.06,
+        scrollTrigger: { trigger: panel, start: "top 80%", once: true },
       }
     );
   });
 
-  // 히어로 제목은 줄 단위로 조금씩 늦게 올라온다
-  const titleLines = document.querySelectorAll(".panel-hero .title-line");
-  if (titleLines.length > 0) {
-    gsap.fromTo(titleLines, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", stagger: 0.12, delay: 0.15 });
-  }
-
   if (!stage) return;
 
-  // 각 패널의 morph 값을 스크롤에 따라 보간해 무대에 넘긴다
+  // 각 구간의 morph 값을 스크롤에 따라 보간해 무대에 넘긴다
   panels.forEach((panel, index) => {
     const from = parseFloat(panel.dataset.morph || "0");
     const next = panels[index + 1];

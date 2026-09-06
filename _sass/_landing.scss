@@ -1,12 +1,12 @@
 /*******************************************************************************
- * 랜딩 페이지. 스크롤에 따라 패널이 지나가고 배경의 3D 무대가 함께 변한다.
+ * 랜딩 페이지. 왼쪽 고정 인덱스와 오른쪽으로 흐르는 본문으로 구성한다.
  ******************************************************************************/
 
 .landing-body {
   background-color: var(--global-bg-color);
 }
 
-// 3D 무대는 화면에 고정되어 모든 패널 뒤에 깔린다
+// 3D 무대는 화면에 고정되어 본문 뒤에 깔린다
 .landing-stage {
   position: fixed;
   inset: 0;
@@ -17,145 +17,96 @@
 .landing {
   position: relative;
   z-index: 1;
-}
-
-.panel {
-  display: flex;
-  align-items: center;
-  min-height: calc(100vh - 56px);
-  scroll-margin-top: 56px;
-  padding: $space-xxl $space-lg;
   max-width: $landing-max-width;
   margin: 0 auto;
+  padding: 0 $space-lg;
 
   @media (max-width: $bp-mobile-lg) {
-    min-height: auto;
-    padding: $space-xxl $space-md;
+    padding: 0 $space-md;
   }
 }
 
-.panel-right {
-  justify-content: flex-end;
+// 모노스페이스 라벨은 날짜, 식별자, 구조 정보에 쓴다
+.mono {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
+  color: var(--global-text-color-light);
 }
 
-.panel-hero {
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.panel-copy {
-  max-width: 46rem;
-}
-
-.panel-card {
-  max-width: 34rem;
-  padding: $space-xl;
-  border: 1px solid var(--global-divider-color);
-  border-radius: $radius-lg;
-  background-color: var(--global-bg-color);
-
-  @media (max-width: $bp-mobile-lg) {
-    padding: $space-lg;
-    max-width: none;
-  }
-}
-
-.eyebrow {
+.label {
   @include type-eyebrow;
   margin-bottom: $space-sm;
   color: var(--global-theme-color);
 }
 
-.display-xl {
+/* 히어로 */
+
+.hero {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: $space-xxl 0;
+}
+
+.hero-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-xxl;
+
+  @media (max-width: $bp-mobile-lg) {
+    flex-direction: column-reverse;
+    gap: $space-lg;
+  }
+}
+
+.hero-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hero-title {
   @include type-display-xl;
-  margin-bottom: $space-lg;
+  margin: 0 0 $space-lg;
   color: var(--global-text-color);
 }
 
-.display-lg {
-  @include type-display-lg;
-  margin-bottom: $space-md;
-  color: var(--global-text-color);
-}
-
-.title-line {
-  display: block;
-}
-
-.panel-lead {
+.hero-lead {
   font-size: $type-body-lg-size;
   line-height: $type-body-leading;
   color: var(--global-text-color-light);
-  max-width: 38rem;
+  max-width: 36rem;
+  margin-bottom: $space-lg;
 }
 
-.panel-card p {
-  font-size: $type-body-size;
-  line-height: $type-body-leading;
-  color: var(--global-text-color-light);
-  margin-bottom: $space-md;
-}
-
-.panel-focus {
-  padding-left: $space-md;
-  border-left: 2px solid var(--global-theme-color);
-}
-
-.panel-list,
-.panel-news {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 $space-lg;
-}
-
-.panel-list li,
-.panel-news li {
-  padding: $space-xs 0;
-  border-top: 1px solid var(--global-divider-color);
-}
-
-.panel-list a {
-  display: block;
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.panel-list span,
-.panel-news .news-body {
-  display: block;
-  font-size: 0.875rem;
-  color: var(--global-text-color-light);
-}
-
-.panel-news .news-date {
-  @include type-eyebrow;
-  display: block;
-  color: var(--global-theme-color);
-}
-
-.panel-links {
+.hero-meta {
   display: flex;
   flex-wrap: wrap;
+  gap: $space-md;
+  margin: 0;
 }
 
-.panel-links a {
-  margin-right: $space-lg;
-  margin-bottom: $space-xs;
-  font-weight: 500;
-}
+.hero-portrait {
+  flex: 0 0 auto;
+  width: 9rem;
+  margin: 0;
 
-.panel-contact a {
-  margin-right: $space-md;
-}
+  img {
+    width: 100%;
+    border-radius: $radius-lg;
+    border: 1px solid var(--global-divider-color);
+    display: block;
+  }
 
-.panel-empty {
-  font-style: italic;
+  @media (max-width: $bp-mobile-lg) {
+    width: 6rem;
+  }
 }
 
 .scroll-cue {
   margin-top: $space-xxl;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--global-text-color-light);
   animation: landing-cue 2s ease-in-out infinite;
 }
@@ -167,52 +118,174 @@
   }
 
   50% {
-    transform: translateY(0.4rem);
+    transform: translateY(0.35rem);
   }
 }
 
-// 움직임을 줄이도록 설정한 사용자에게는 애니메이션을 멈춘다
+/* 인덱스와 본문 */
+
+.landing-shell {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  gap: $space-xxl;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.landing-index {
+  position: sticky;
+  top: calc(56px + #{$space-xl});
+  align-self: start;
+  height: max-content;
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--global-divider-color);
+  }
+
+  li a {
+    display: block;
+    padding: $space-xs $space-md;
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+    color: var(--global-text-color-light);
+    font-size: 0.9375rem;
+    line-height: 1.3;
+  }
+
+  li a .mono {
+    margin-right: $space-xs;
+  }
+
+  li a.is-active {
+    border-left-color: var(--global-theme-color);
+    color: var(--global-theme-color);
+  }
+
+  li a.is-active .mono {
+    color: var(--global-theme-color);
+  }
+
+  @media (max-width: $bp-tablet) {
+    display: none;
+  }
+}
+
+.landing-content {
+  min-width: 0;
+  // 우측은 3D 무대가 들어갈 자리로 비워 둔다
+  max-width: 46rem;
+}
+
+.panel {
+  padding: $space-section 0;
+  border-top: 1px solid var(--global-divider-color);
+  scroll-margin-top: 72px;
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  @media (max-width: $bp-mobile-lg) {
+    padding: $space-xxl 0;
+  }
+}
+
+.panel-title {
+  @include type-display-lg;
+  margin: 0 0 $space-md;
+  color: var(--global-text-color);
+}
+
+.panel-body {
+  font-size: $type-body-size;
+  line-height: $type-body-leading;
+  color: var(--global-text-color-light);
+  max-width: 38rem;
+  margin-bottom: $space-xl;
+}
+
+/* 기록 목록 */
+
+.record {
+  margin: 0 0 $space-xl;
+
+  > div {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: $space-md;
+    padding: $space-sm 0;
+    border-top: 1px solid var(--global-divider-color);
+
+    @media (max-width: $bp-mobile-lg) {
+      grid-template-columns: 1fr;
+      gap: $space-xxs;
+    }
+  }
+
+  dt {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--global-text-color);
+    line-height: 1.45;
+  }
+}
+
+.record-list {
+  list-style: none;
+  margin: 0 0 $space-xl;
+  padding: 0;
+
+  li {
+    padding: $space-sm 0;
+    border-top: 1px solid var(--global-divider-color);
+  }
+
+  a {
+    display: block;
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: $space-xxs;
+  }
+
+  span {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--global-text-color-light);
+  }
+}
+
+.record-empty {
+  margin-bottom: $space-xl;
+}
+
+.panel-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-lg;
+  margin: 0;
+
+  a {
+    font-weight: 500;
+  }
+}
+
+/* 움직임을 줄이도록 설정한 사용자 대응 */
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue {
     animation: none;
   }
-}
 
-// GSAP이 없거나 움직임을 줄이는 설정일 때 최종 상태로 표시한다
-.panel.is-visible .panel-card,
-.panel.is-visible .panel-copy {
-  opacity: 1;
-  transform: none;
-}
-
-// 모바일에서는 패널을 위아래로 쌓고 카드 폭 제한을 푼다
-@media (max-width: $bp-mobile-lg) {
-  .panel,
-  .panel-right,
-  .panel-hero {
-    justify-content: flex-start;
-  }
-
-  .panel-copy,
-  .panel-card {
-    max-width: none;
-    width: 100%;
-  }
-
-  .scroll-cue {
-    margin-top: $space-xl;
-  }
-}
-
-// 태블릿에서는 카드 폭만 조금 줄인다
-@media (min-width: $bp-mobile-lg) and (max-width: $bp-tablet) {
-  .panel-card {
-    max-width: 28rem;
-  }
-}
-
-// 3D 무대는 움직임을 줄이는 설정에서 정지 상태로 둔다
-@media (prefers-reduced-motion: reduce) {
   .landing-stage {
     display: none;
   }

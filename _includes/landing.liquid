@@ -3,126 +3,142 @@
 {% assign recent_news = site.news | sort: 'date' | reverse %}
 {% assign featured_projects = site.projects | sort: 'importance' %}
 
-<section class="panel panel-hero" data-panel="hero" data-stage="structure" data-morph="0">
-  <div class="panel-copy">
-    <p class="eyebrow">Computational biology &middot; Seoul National University</p>
-    <h1 class="panel-title display-xl">
-      <span class="title-line">From protein structure</span>
-      <span class="title-line">to how molecules bind,</span>
-      <span class="title-line">learned by machines.</span>
-    </h1>
-    <p class="panel-lead">
-      I am an undergraduate researcher studying how structure-based machine learning can explain and predict the way proteins move, bind and signal.
-    </p>
+<section class="hero" id="top" data-stage="structure" data-morph="0">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="label">Undergraduate researcher &middot; Seoul National University</p>
+      <h1 class="hero-title">Junsang Park</h1>
+      <p class="hero-lead">
+        I study how the structure and dynamics of proteins determine what they bind and how they signal, and how machine learning can predict it.
+      </p>
+      <p class="hero-meta">
+        <span class="mono">B.S. Chemical and Biological Engineering</span>
+        <span class="mono">Minor in Computer Science</span>
+      </p>
+    </div>
+    <figure class="hero-portrait">
+      <img src="{{ '/assets/img/prof_pic.jpg' | relative_url }}" alt="Junsang Park" loading="lazy">
+    </figure>
   </div>
   <div class="scroll-cue" aria-hidden="true">&darr;</div>
 </section>
 
-<section class="panel panel-right" id="about" data-panel="about" data-stage="structure" data-morph="0.2">
-  <div class="panel-card">
-    <p class="eyebrow">About</p>
-    <h2 class="display-lg">A research log, kept in the open.</h2>
-    <p>
-      This site is a long-term academic portfolio and a running record of how I read papers, work through equations and turn them into research ideas.
-    </p>
-    <p class="panel-focus">
-      Current focus: protein&ndash;ligand interaction modeling, structure representations and embeddings, and generative models for molecular systems.
-    </p>
-    <div class="panel-links">
-      <a href="{{ '/cv/' | relative_url }}">CV &rarr;</a>
-    </div>
-  </div>
-</section>
+<div class="landing-shell">
+  <nav class="landing-index" aria-label="Section index">
+    <ol>
+      <li>
+        <a href="#research" data-index="research"><span class="mono">01</span> Research</a>
+      </li>
+      <li>
+        <a href="#reviews" data-index="reviews"><span class="mono">02</span> Paper Reviews</a>
+      </li>
+      <li>
+        <a href="#journal" data-index="journal"><span class="mono">03</span> Journal</a>
+      </li>
+      <li>
+        <a href="#news" data-index="news"><span class="mono">04</span> News</a>
+      </li>
+    </ol>
+  </nav>
 
-<section class="panel" id="research" data-panel="research" data-stage="binding" data-morph="0.45">
-  <div class="panel-card">
-    <p class="eyebrow">Research &amp; Projects</p>
-    <h2 class="display-lg">Structure, dynamics and the models that read them.</h2>
-    <p>
-      At the Computational Biology Laboratory I study structural determinants of GPCR agonism and antagonism, contribute to protein&ndash;ligand
-      complex modeling for CASP17, and build tools that make chemical engineering theory visible.
-    </p>
-    {% if featured_projects.size > 0 %}
-      <ul class="panel-list">
-        {% for project in featured_projects limit: 3 %}
-          <li>
-            <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
-            <span>{{ project.description }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <div class="panel-links">
-      <a href="{{ '/projects/' | relative_url }}">All projects &rarr;</a>
-    </div>
-  </div>
-</section>
+  <div class="landing-content">
+    <section class="panel" id="research" data-stage="binding" data-morph="0.35">
+      <p class="label">01 &mdash; Research</p>
+      <h2 class="panel-title">Two labs, one question</h2>
+      <p class="panel-body">
+        How structure and motion decide binding. At the Computational Biology Laboratory I work on GPCR agonism and antagonism, protein&ndash;ligand
+        complex modeling for CASP17, and CBAD-mediated regulation in IL-17RA signaling. Before that I worked on protein language models for antibody
+        engineering.
+      </p>
+      <dl class="record">
+        <div>
+          <dt class="mono">2026.02 &ndash;</dt>
+          <dd>Computational Biology Laboratory &middot; Prof. Chaok Seok</dd>
+        </div>
+        <div>
+          <dt class="mono">2025.09 &ndash; 2026.01</dt>
+          <dd>Biomedical &amp; Health Informatics Laboratory &middot; Prof. Sun Kim</dd>
+        </div>
+      </dl>
+      {% if featured_projects.size > 0 %}
+        <ul class="record-list">
+          {% for project in featured_projects limit: 3 %}
+            <li>
+              <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+              <span>{{ project.description }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <p class="panel-links">
+        <a href="{{ '/projects/' | relative_url }}">Projects</a>
+        <a href="{{ '/cv/' | relative_url }}">CV</a>
+      </p>
+    </section>
 
-<section class="panel panel-right" id="reviews" data-panel="reviews" data-stage="docking" data-morph="0.7">
-  <div class="panel-card">
-    <p class="eyebrow">Paper Reviews</p>
-    <h2 class="display-lg">Reading notes, written to be re-read.</h2>
-    <p>
-      Structured notes on machine learning and bioinformatics papers, from the problem setting through the equations to what the results actually
-      show.
-    </p>
-    {% if recent_reviews.size > 0 %}
-      <ul class="panel-list">
-        {% for review in recent_reviews limit: 3 %}
-          <li>
-            <a href="{{ review.url | relative_url }}">{{ review.title }}</a>
-            <span>{{ review.date | date: '%b %d, %Y' }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <div class="panel-links">
-      <a href="{{ '/reviews/' | relative_url }}">All reviews &rarr;</a>
-    </div>
-  </div>
-</section>
+    <section class="panel" id="reviews" data-stage="docking" data-morph="0.6">
+      <p class="label">02 &mdash; Paper Reviews</p>
+      <h2 class="panel-title">Notes on papers I read</h2>
+      <p class="panel-body">
+        Machine learning and bioinformatics papers, written up from the problem setting through the equations to what the results show. Longer pieces
+        are marked
+        <span class="mono">deep</span>; shorter ones are marked <span class="mono">note</span>.
+      </p>
+      {% if recent_reviews.size > 0 %}
+        <ul class="record-list">
+          {% for review in recent_reviews limit: 3 %}
+            <li>
+              <a href="{{ review.url | relative_url }}">{{ review.title }}</a>
+              <span class="mono">
+                {{- review.date | date: '%Y.%m.%d' -}}
+                {%- if review.depth %} &middot; {{ review.depth }}{% endif -%}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <p class="panel-links">
+        <a href="{{ '/reviews/' | relative_url }}">All {{ recent_reviews.size }} reviews</a>
+      </p>
+    </section>
 
-<section class="panel" id="journal" data-panel="journal" data-stage="dispersal" data-morph="0.85">
-  <div class="panel-card">
-    <p class="eyebrow">Journal</p>
-    <h2 class="display-lg">Shorter entries, while the work is still messy.</h2>
-    <p>Informal notes on experiments, study detours and the parts of a problem that have not settled into a review yet.</p>
-    {% if recent_posts.size > 0 %}
-      <ul class="panel-list">
-        {% for post in recent_posts limit: 3 %}
-          <li>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            <span>{{ post.date | date: '%b %d, %Y' }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-      <div class="panel-links">
-        <a href="{{ '/blog/' | relative_url }}">All entries &rarr;</a>
-      </div>
-    {% else %}
-      <p class="panel-empty">First entry coming soon.</p>
-    {% endif %}
-  </div>
-</section>
+    <section class="panel" id="journal" data-stage="dispersal" data-morph="0.8">
+      <p class="label">03 &mdash; Journal</p>
+      <h2 class="panel-title">Shorter notes, work in progress</h2>
+      <p class="panel-body">Experiments, study detours and problems that have not settled into a review yet.</p>
+      {% if recent_posts.size > 0 %}
+        <ul class="record-list">
+          {% for post in recent_posts limit: 3 %}
+            <li>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="mono">{{ post.date | date: '%Y.%m.%d' }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="panel-links"><a href="{{ '/blog/' | relative_url }}">All entries</a></p>
+      {% else %}
+        <p class="record-empty mono">No entries yet.</p>
+      {% endif %}
+    </section>
 
-<section class="panel panel-final" id="news" data-panel="news" data-stage="calm" data-morph="1">
-  <div class="panel-card">
-    <p class="eyebrow">News</p>
-    {% if recent_news.size > 0 %}
-      <ul class="panel-news">
-        {% for item in recent_news limit: 4 %}
-          <li>
-            <span class="news-date">{{ item.date | date: '%b %Y' }}</span>
-            <span class="news-body">{{ item.content | strip_html | strip | truncate: 140 }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <div class="panel-links panel-contact">
-      <a href="mailto:{{ site.data.socials.email }}">Email</a>
-      <a href="{{ '/cv/' | relative_url }}">CV</a>
-      <a href="https://github.com/{{ site.data.socials.github_username }}" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="{{ '/news/' | relative_url }}">All news &rarr;</a>
-    </div>
+    <section class="panel" id="news" data-stage="calm" data-morph="1">
+      <p class="label">04 &mdash; News</p>
+      <h2 class="panel-title">Recent</h2>
+      {% if recent_news.size > 0 %}
+        <dl class="record">
+          {% for item in recent_news limit: 4 %}
+            <div>
+              <dt class="mono">{{ item.date | date: '%Y.%m' }}</dt>
+              <dd>{{ item.content | strip_html | strip | truncate: 120 }}</dd>
+            </div>
+          {% endfor %}
+        </dl>
+      {% endif %}
+      <p class="panel-links">
+        <a href="{{ '/news/' | relative_url }}">All news</a>
+        <a href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a>
+        <a href="https://github.com/{{ site.data.socials.github_username }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </p>
+    </section>
   </div>
-</section>
+</div>
