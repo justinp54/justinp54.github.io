@@ -16,21 +16,21 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 4 # leave blank to include all the news in the `_news` folder
+  enabled: true
+  scrollable: true
+  limit: 4
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 6 # leave blank to include all the blog posts
+  enabled: false
+  scrollable: true
+  limit: 6
 ---
 ### About this site
 This website is a **long-term academic portfolio** that also serves as a **personal research and study log**.
 
 My primary interests are in **`bioinformatics`**, particularly **protein structure modeling and protein-ligand interactions**, and in how modern **machine learning models** can be used to understand and predict these systems.
 
-This site focueses on **documenting my learning process**: how I read papers, understand equations, interpret algorithms, and gradually build research ideas.
+This site focuses on **documenting my learning process**: how I read papers, understand equations, interpret algorithms, and gradually build research ideas.
 
 ### What you will find here
  - **Paper Reviews** — Structured reading notes on machine learning and bioinformatics papers
