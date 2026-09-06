@@ -54,7 +54,9 @@ layout: default
         &nbsp; &middot; &nbsp;
         {% for category in page.categories %}
           {% if is_paper_review or page.collection == 'reviews' %}
-            <a href="{{ category | slugify | prepend: '/reviews/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}</a>
+            <a href="{{ category | slugify | prepend: '/reviews/category/' | relative_url }}">
+              <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}
+            </a>
           {% elsif url_beginning == '/blog/' %}
             <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}</a>
           {% else %}

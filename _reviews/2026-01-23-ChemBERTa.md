@@ -26,9 +26,9 @@ toc:
 
 # Related Work
 
-화학 분야에서는 SMILES 표현법이 오랜 기간 사용되어 왔고, 최근 transformer 모델을 SMILES에 적용하고자 하는 연구가 활발히 진행되고 있다. 그러나 기존 연구들은 pretraining 데이터 셋이 상대적으로 작았거나, pretraining dataset및 task에 대한 체계적인 분석이 부족했다. 
+화학 분야에서는 SMILES 표현법이 오랜 기간 사용되어 왔고, 최근 transformer 모델을 SMILES에 적용하고자 하는 연구가 활발히 진행되고 있다. 그러나 기존 연구들은 pretraining 데이터 셋이 상대적으로 작았거나, pretraining dataset및 task에 대한 체계적인 분석이 부족했다.
 따라서 본 논문에서는 ChemBERTa를 대규모 SMILES 데이터셋 하에서 학습시키고, property prediction task에서의 성능을 체계적으로 분석한다.
 
 # Methodology
 
-ChemBERTa모델은 RoBERTa 아키텍처를 
+ChemBERTa모델은 RoBERTa 아키텍처를

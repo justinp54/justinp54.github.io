@@ -24,7 +24,9 @@ layout: default
       <div class="identity-info">
         <h1 class="identity-name">
           {% if site.title == 'blank' %}
-            <span class="font-weight-bold">{{ site.first_name }}</span>{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}
+            <span class="font-weight-bold">{{ site.first_name }}</span>
+            {%- if site.middle_name %} {{ site.middle_name }}{% endif %}
+            {{ site.last_name }}
           {% else %}
             {{ site.title }}
           {% endif %}

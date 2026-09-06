@@ -27,9 +27,7 @@
       "startDate": "2026-01-01",
       "endDate": "",
       "location": "Seoul, South Korea",
-      "highlights": [
-        "Protein structure modeling and protein-ligand interaction research"
-      ]
+      "highlights": ["Protein structure modeling and protein-ligand interaction research"]
     },
     {
       "name": "SNU Biomedical & Health Informatics Lab",
@@ -38,9 +36,7 @@
       "startDate": "2025-08-01",
       "endDate": "2025-12-31",
       "location": "Seoul, South Korea",
-      "highlights": [
-        "Undergraduate Research Opportunities Program"
-      ]
+      "highlights": ["Undergraduate Research Opportunities Program"]
     }
   ],
   "work": [],

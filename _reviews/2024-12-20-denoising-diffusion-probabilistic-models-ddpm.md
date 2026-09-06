@@ -25,16 +25,16 @@ toc:
 
 ## Notation
 
-| 기호 | 의미 |
-|------|------|
-| $$x_0$$ | 원본 데이터 |
-| $$x_t$$ | 시간 $$t$$에서의 noisy 데이터 |
-| $$T$$ | 총 시간 단계 (논문에서는 1000) |
-| $$\beta_t$$ | noise schedule |
-| $$\alpha_t$$ | $$1 - \beta_t$$ |
-| $$\bar{\alpha}_t$$ | $$\prod_{s=1}^t \alpha_s$$ |
-| $$\epsilon$$ | $$\mathcal{N}(0, I)$$에서 샘플링한 노이즈 |
-| $$\epsilon_\theta$$ | 신경망이 예측하는 노이즈 |
+| 기호                | 의미                                      |
+| ------------------- | ----------------------------------------- |
+| $$x_0$$             | 원본 데이터                               |
+| $$x_t$$             | 시간 $$t$$에서의 noisy 데이터             |
+| $$T$$               | 총 시간 단계 (논문에서는 1000)            |
+| $$\beta_t$$         | noise schedule                            |
+| $$\alpha_t$$        | $$1 - \beta_t$$                           |
+| $$\bar{\alpha}_t$$  | $$\prod_{s=1}^t \alpha_s$$                |
+| $$\epsilon$$        | $$\mathcal{N}(0, I)$$에서 샘플링한 노이즈 |
+| $$\epsilon_\theta$$ | 신경망이 예측하는 노이즈                  |
 
 ---
 
@@ -201,16 +201,19 @@ U-Net 기반. Time embedding (sinusoidal)을 각 residual block에 주입하고,
 ## Discussion
 
 **강점:**
+
 - 학습이 안정적 — GAN처럼 mode collapse나 학습 불안정 문제가 없음
 - Loss가 단순한 MSE — 구현과 디버깅이 쉬움
 - 이론적 기반(ELBO)이 탄탄하면서도 실용적 단순화가 잘 됨
 
 **한계:**
+
 - Sampling이 느림 — $$T=1000$$ 스텝을 순차적으로 거쳐야 함 (이후 DDIM에서 해결)
 - Log-likelihood가 최적이 아님 — $$L_{\text{simple}}$$에서 가중치를 제거했기 때문
 - Noise schedule($$\beta_t$$)을 수동으로 설정해야 함 (이후 Improved DDPM에서 cosine schedule 제안)
 
 **후속 연구:**
+
 - **DDIM**: Deterministic sampling으로 스텝 수 대폭 감소
 - **Improved DDPM**: Cosine schedule, learned $$\Sigma_\theta$$로 log-likelihood 개선
 - **Guided Diffusion**: Classifier guidance로 conditional 생성

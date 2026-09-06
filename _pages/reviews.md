@@ -39,6 +39,7 @@ pagination:
 
 {% assign featured_reviews = paper_reviews | where: "featured", "true" %}
 {% if featured_reviews.size > 0 %}
+
 <div class="container featured-posts">
   {% assign is_even = featured_reviews.size | modulo: 2 %}
   <div class="row row-cols-{% if featured_reviews.size <= 2 or is_even == 0 %}2{% else %}3{% endif %}">
@@ -129,6 +130,7 @@ pagination:
       </div>
     </div>
     {% endif %}
+
   </li>
   {% endfor %}
 </ul>
