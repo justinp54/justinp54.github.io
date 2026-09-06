@@ -176,3 +176,10 @@
     animation: none;
   }
 }
+
+// GSAP이 없거나 움직임을 줄이는 설정일 때 최종 상태로 표시한다
+.panel.is-visible .panel-card,
+.panel.is-visible .panel-copy {
+  opacity: 1;
+  transform: none;
+}
