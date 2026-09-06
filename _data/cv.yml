@@ -44,24 +44,50 @@
         - Contributed to an ESM-based protein language model pipeline that proposes sequence mutations via ensemble voting
         - Supported implementation and evaluation of the AbAgNet ddG predictor for mutation-induced changes in antibody-antigen binding affinity
 
-- title: Scholarships & Honors
+- title: Awards & Honors
   type: time_table
   contents:
     - title: Kwanjeong Scholarship
       institution: Kwanjeong Foundation
-      year: 2025
+      year: 2025 - present
       description:
-        - Merit-based scholarship awarded to outstanding university students in South Korea
-    - title: SNU Tomorrow's Engineers Membership (STEM)
-      institution: Seoul National University College of Engineering
-      year: 2025
-      description:
-        - Selective honors program in the College of Engineering for students with outstanding academic achievement
+        - Selected as one of approximately 100 domestic scholars annually from university-nominated candidates
+        - Awarded $2,700 per semester for four semesters
     - title: Presidential Science Scholarship
       institution: Korea Student Aid Foundation
-      year: 2023
+      year: 2023 - present
       description:
-        - National merit-based scholarship for outstanding students in science and engineering
+        - National scholarship awarded to outstanding students in STEM
+        - Awarded $3,700 per semester for eight semesters, covering full tuition and an academic stipend
+    - title: Special Award, 67th National Science Fair
+      institution: National Science Museum
+      year: 2021
+      description:
+        - "Topic: sustained use of self-healing road-marking beads containing microorganism"
+        - Selected from 2,300 submissions nationwide at one of Korea's longest-running national science competitions
+
+- title: Academic Service & Activities
+  type: time_table
+  contents:
+    - title: Conference Volunteer
+      institution: 43rd International Conference on Machine Learning (ICML 2026)
+      year: Jul 2026
+      description:
+        - Assisted attendee registration and on-site conference operations at an international machine learning conference
+    - title: SNU Tomorrow's Engineers Membership (STEM)
+      institution: College of Engineering, Seoul National University
+      year: 2025 - present
+      description:
+        - "Director of Recruitment: led member recruitment, selection logistics and applicant communications"
+        - "Director of Volunteer Service: coordinated student volunteering programs"
+        - "STEM Vision Scholarship: supported the selection of five recipients, each awarded $1,000"
+        - "Mentor, STEM Vision Fair: mentored engineering students on scholarships, academic pathways and AI-driven drug discovery research"
+    - title: Peer Tutoring Program
+      institution: Seoul National University
+      year: 2024, 2025
+      description:
+        - "Major course tutor: Organic Chemistry II (2025)"
+        - "Basic course tutor: Introductory Physics I (2024), Fundamentals of Physics II (2025)"
 
 - title: Research Interests
   type: nested_list
