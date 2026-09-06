@@ -13,8 +13,8 @@ pagination:
 {% assign paper_reviews = site.reviews | sort: "date" | reverse %}
 
 <div class="p-3 mb-4 rounded border">
-  <div class="d-flex align-items-center gap-2 mb-2">
-    <i class="fa-solid fa-file-pen" style="color: #09ad94;"></i>
+  <div class="d-flex align-items-center mb-2">
+    <i class="fa-solid fa-file-pen mr-2" style="color: var(--global-theme-color);"></i>
     <strong>논문리뷰</strong> ({{ paper_reviews | size }})
   </div>
   {% assign all_tags = "" | split: "," %}
@@ -26,10 +26,10 @@ pagination:
     {% endfor %}
   {% endfor %}
   {% if all_tags.size > 0 %}
-  <div class="ms-3 d-flex flex-wrap gap-2">
+  <div class="ml-3 d-flex flex-wrap">
     {% for tag in all_tags %}
       {% assign tag_count = paper_reviews | where_exp: "r", "r.tags contains tag" | size %}
-      <a href="{{ tag | slugify | prepend: '/reviews/tag/' | append: '/' | relative_url }}">
+      <a class="mr-3 mb-1" href="{{ tag | slugify | prepend: '/reviews/tag/' | append: '/' | relative_url }}">
         <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }} ({{ tag_count }})
       </a>
     {% endfor %}
@@ -110,7 +110,7 @@ pagination:
       {% if tags != "" %}
         &nbsp;&middot;&nbsp;
         {% for tag in review.tags %}
-          <a href="{{ tag | slugify | prepend: '/reviews/tag/' | append: '/' | relative_url }}">
+          <a class="mr-3 mb-1" href="{{ tag | slugify | prepend: '/reviews/tag/' | append: '/' | relative_url }}">
             <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>{% unless forloop.last %}&nbsp;{% endunless %}
         {% endfor %}
       {% endif %}
