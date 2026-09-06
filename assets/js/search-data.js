@@ -3,8 +3,8 @@ const ninja = document.querySelector('ninja-keys');
 
 // add the home and posts menu items
 ninja.data = [{
-    id: "nav-about",
-    title: "About",
+    id: "nav-home",
+    title: "Home",
     section: "Navigation",
     handler: () => {
       window.location.href = "/";
@@ -37,7 +37,29 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "news-awarded-the-kwanjeong-scholarship-from-the-kwanjeong-foundation",
+        },{id: "nav-about",
+          title: "About",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/about/";
+          },
+        },{id: "news-entered-daejeon-science-high-school-for-the-gifted-a-specialized-high-school-for-gifted-students-in-science-and-mathematics",
+          title: 'Entered Daejeon Science High School for the Gifted, a specialized high school for...',
+          description: "",
+          section: "News",},{id: "news-received-a-special-award-at-the-67th-national-science-fair-from-the-national-science-museum-selected-from-2-300-submissions-nationwide",
+          title: 'Received a Special Award at the 67th National Science Fair from the National...',
+          description: "",
+          section: "News",},{id: "news-graduated-from-daejeon-science-high-school-for-the-gifted-with-the-academic-excellence-award",
+          title: 'Graduated from Daejeon Science High School for the Gifted with the Academic Excellence...',
+          description: "",
+          section: "News",},{id: "news-entered-seoul-national-university-majoring-in-chemical-and-biological-engineering-with-a-minor-in-computer-science-and-engineering",
+          title: 'Entered Seoul National University, majoring in Chemical and Biological Engineering with a minor...',
+          description: "",
+          section: "News",},{id: "news-selected-for-the-presidential-science-scholarship-from-the-korea-student-aid-foundation",
+          title: 'Selected for the Presidential Science Scholarship from the Korea Student Aid Foundation.',
+          description: "",
+          section: "News",},{id: "news-awarded-the-kwanjeong-scholarship-from-the-kwanjeong-foundation",
           title: 'Awarded the Kwanjeong Scholarship from the Kwanjeong Foundation.',
           description: "",
           section: "News",},{id: "news-selected-for-snu-tomorrow-s-engineers-membership-stem-college-of-engineering",
@@ -48,6 +70,9 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "news-joined-snu-computational-biology-lab-as-a-research-intern-advised-by-prof-chaok-seok",
           title: 'Joined SNU Computational Biology Lab as a Research Intern, advised by Prof. Chaok...',
+          description: "",
+          section: "News",},{id: "news-volunteered-at-icml-2026-the-43rd-international-conference-on-machine-learning",
+          title: 'Volunteered at ICML 2026, the 43rd International Conference on Machine Learning.',
           description: "",
           section: "News",},{id: "projects-cbpl-kit",
           title: 'CBPL-kit',
