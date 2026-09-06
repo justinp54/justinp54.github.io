@@ -16,6 +16,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/reviews/";
           },
+        },{id: "nav-projects",
+          title: "Projects",
+          description: "Research, course and personal projects.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
         },{id: "nav-cv",
           title: "CV",
           description: "",
@@ -35,7 +42,12 @@ ninja.data = [{
           section: "News",},{id: "news-joined-snu-computational-biology-lab-as-a-research-intern-advised-by-prof-chaok-seok",
           title: 'Joined SNU Computational Biology Lab as a Research Intern, advised by Prof. Chaok...',
           description: "",
-          section: "News",},{id: "reviews-논문리뷰-denoising-diffusion-probabilistic-models-ddpm",
+          section: "News",},{id: "projects-cbpl-kit",
+          title: 'CBPL-kit',
+          description: "Interactive Hunter-Nash liquid-liquid extraction simulator for chemical engineering education",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_cbpl_kit/";
+            },},{id: "reviews-논문리뷰-denoising-diffusion-probabilistic-models-ddpm",
           title: '[논문리뷰] Denoising Diffusion Probabilistic Models (DDPM)',
           description: "Diffusion model의 시작점. Forward/reverse process, training objective 유도까지 정리.",
           section: "Reviews",handler: () => {
