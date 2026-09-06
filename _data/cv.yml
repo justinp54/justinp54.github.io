@@ -104,6 +104,8 @@
 - title: Skills
   type: list
   contents:
-    - "<u>Programming:</u> Python, C++"
+    - "<u>Programming:</u> Python, C++, HTML/CSS"
     - "<u>ML/DL:</u> PyTorch, NumPy, scikit-learn"
-    - "<u>Tools:</u> Git, Linux/WSL, Docker"
+    - "<u>Tools:</u> Git, WSL/Linux, Docker"
+    - "<u>Process simulation:</u> Aveva Process Simulator, Pro II"
+    - "<u>Languages:</u> Korean (native), English (fluent)"
