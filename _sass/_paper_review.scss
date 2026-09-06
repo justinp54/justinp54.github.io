@@ -630,3 +630,23 @@ html[data-theme="dark"] .paper-review .paper-info-block {
   background: rgba(255, 255, 255, 0.04);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
+// 리뷰 깊이 배지: deep은 정독 리뷰, note는 짧은 메모
+.review-depth {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  border: 1px solid var(--global-divider-color);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}
+
+.review-depth-deep {
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-color);
+}

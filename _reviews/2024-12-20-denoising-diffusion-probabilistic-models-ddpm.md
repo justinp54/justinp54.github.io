@@ -4,6 +4,7 @@ title: "[논문리뷰] Denoising Diffusion Probabilistic Models (DDPM)"
 date: 2024-12-20
 description: "Diffusion model의 시작점. Forward/reverse process, training objective 유도까지 정리."
 tags: [generative-models, diffusion-models]
+depth: deep
 toc:
   sidebar: left
 ---

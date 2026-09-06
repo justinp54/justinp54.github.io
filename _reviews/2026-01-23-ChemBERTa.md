@@ -4,6 +4,7 @@ title: "[논문리뷰] ChemBERTa: Large-Scale Self-Supervised Pretraining for Mo
 date: 2026-01-23
 description: "ChemBERTa; molecular property prediction을 위한 scalable한 self-supervised pretraining 방법론 제안"
 tags: [molecular-property-prediction, transformer, self-supervised-learning]
+depth: deep
 toc:
   sidebar: left
 ---
