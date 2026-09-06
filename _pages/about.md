@@ -41,7 +41,7 @@ This site focuses on **documenting my learning process**: how I read papers, und
 - **Paper Reviews** — Structured reading notes on machine learning and bioinformatics papers
 - **Journal** — Short, informal entries documenting my study process, experiments, and occasional side interests
 - **Projects** — Research, course, and personal projects related to machine learning, bioinformatics, and scientific modeling
-- **Publication & CV** — A curated record of academic outputs and experiences as they develop. The materials can be found at [CV](/cv/) and [Publications](/publications/) pages
+- **Publication & CV** — A curated record of academic outputs and experiences as they develop. The record can be found on the [CV](/cv/) page
 
 ### Current focus
 

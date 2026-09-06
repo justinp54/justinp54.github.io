@@ -9,7 +9,8 @@
       <p class="label">Undergraduate researcher &middot; Seoul National University</p>
       <h1 class="hero-title">Junsang Park</h1>
       <p class="hero-lead">
-        I study how the structure and dynamics of proteins determine what they bind and how they signal, and how machine learning can predict it.
+        I study protein structure and protein&ndash;ligand interactions, and how machine learning can model them. This site is the working record: how
+        I read papers, work through equations, interpret algorithms, and gradually build research ideas.
       </p>
       <p class="hero-meta">
         <span class="mono">B.S. Chemical and Biological Engineering</span>
@@ -47,20 +48,32 @@
       <h2 class="panel-title">What I work on</h2>
       <p class="panel-body">
         Proteins do their work by moving. I study how structure and conformational dynamics decide what a protein binds and how it passes a signal on,
-        and how machine learning can predict both. At the moment that means GPCR agonism and antagonism, protein&ndash;ligand complex modeling for
-        CASP17, and CBAD-mediated regulation in IL-17RA signaling. Earlier I worked on protein language models for antibody engineering and mutation
-        effect prediction.
+        and how machine learning can predict both.
       </p>
+
+      <h3 class="sub-label">Research interests</h3>
+      <ul class="focus-list">
+        <li class="mono">Protein&ndash;ligand interaction modeling</li>
+        <li class="mono">Protein structure representations and embeddings</li>
+        <li class="mono">Generative models (diffusion and flow-based methods)</li>
+        <li class="mono">Conformational dynamics and receptor activation</li>
+      </ul>
 
       <h3 class="sub-label">Positions</h3>
       <dl class="record">
         <div>
           <dt class="mono">2026.02 &ndash;</dt>
-          <dd>Computational Biology Laboratory &middot; Prof. Chaok Seok</dd>
+          <dd>
+            Computational Biology Laboratory &middot; Prof. Chaok Seok
+            <span class="record-topics">GPCR agonism and antagonism &middot; CASP17 ligand prediction &middot; IL-17RA signaling</span>
+          </dd>
         </div>
         <div>
           <dt class="mono">2025.09 &ndash; 2026.01</dt>
-          <dd>Biomedical &amp; Health Informatics Laboratory &middot; Prof. Sun Kim</dd>
+          <dd>
+            Biomedical &amp; Health Informatics Laboratory &middot; Prof. Sun Kim
+            <span class="record-topics">Protein language models &middot; antibody engineering &middot; mutation effect prediction</span>
+          </dd>
         </div>
       </dl>
 
@@ -86,9 +99,8 @@
       <p class="label">02 &mdash; Paper Reviews</p>
       <h2 class="panel-title">Notes on papers I read</h2>
       <p class="panel-body">
-        Machine learning and bioinformatics papers, written up from the problem setting through the equations to what the results show. Longer pieces
-        are marked
-        <span class="mono">deep</span>; shorter ones are marked <span class="mono">note</span>.
+        Structured reading notes on machine learning and bioinformatics papers, from the problem setting through the equations to what the results
+        show.
       </p>
       {% if recent_reviews.size > 0 %}
         <ul class="record-list">
@@ -111,7 +123,7 @@
     <section class="panel" id="journal" data-stage="dispersal" data-morph="0.8">
       <p class="label">03 &mdash; Journal</p>
       <h2 class="panel-title">Shorter notes, work in progress</h2>
-      <p class="panel-body">Experiments, study detours and problems that have not settled into a review yet.</p>
+      <p class="panel-body">Short, informal entries on my study process, experiments, and occasional side interests.</p>
       {% if recent_posts.size > 0 %}
         <ul class="record-list">
           {% for post in recent_posts limit: 3 %}
