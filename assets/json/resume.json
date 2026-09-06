@@ -5,7 +5,7 @@
     "image": "",
     "email": "justinp54@snu.ac.kr",
     "url": "https://justinp54.github.io",
-    "summary": "Undergraduate student at Seoul National University studying Chemical and Biological Engineering with a minor in Computer Science. Interested in bioinformatics, protein structure modeling, and machine learning.",
+    "summary": "Undergraduate student at Seoul National University studying Chemical and Biological Engineering with a minor in Computer Science and Engineering. I work on structure-based machine learning for biomolecules, with a focus on protein structure modeling and protein-ligand interactions.",
     "location": {
       "city": "Seoul",
       "countryCode": "KR",
@@ -19,47 +19,70 @@
       }
     ]
   },
-  "experience": [
-    {
-      "name": "SNU Computational Biology Lab",
-      "position": "Research Intern",
-      "advisor": "Prof. Chaok Seok",
-      "startDate": "2026-01-01",
-      "endDate": "",
-      "location": "Seoul, South Korea",
-      "highlights": ["Protein structure modeling and protein-ligand interaction research"]
-    },
-    {
-      "name": "SNU Biomedical & Health Informatics Lab",
-      "position": "Undergraduate Researcher (UROP)",
-      "advisor": "Prof. Sun Kim",
-      "startDate": "2025-08-01",
-      "endDate": "2025-12-31",
-      "location": "Seoul, South Korea",
-      "highlights": ["Undergraduate Research Opportunities Program"]
-    }
-  ],
-  "work": [],
-  "volunteer": [],
   "education": [
     {
       "institution": "Seoul National University",
       "location": "Seoul, South Korea",
       "url": "https://www.snu.ac.kr/",
-      "area": "Chemical and Biological Engineering",
+      "area": "Chemical and Biological Engineering, minor in Computer Science and Engineering",
       "studyType": "B.S.",
       "startDate": "2023-03-01",
       "endDate": "",
-      "courses": []
+      "courses": [
+        "GPA: 4.26/4.30 overall, 4.25/4.30 major, 4.25/4.30 minor",
+        "Relevant courses: Deep Learning (graduate), Computer Vision, Molecular Biochemical Engineering"
+      ]
     },
     {
       "institution": "Daejeon Science High School for the Gifted",
       "location": "Daejeon, South Korea",
-      "area": "",
-      "studyType": "Graduate",
+      "area": "Science and Mathematics",
+      "studyType": "High School Diploma",
       "startDate": "2020-03-01",
-      "endDate": "2024-02-28",
-      "courses": []
+      "endDate": "2023-02-28",
+      "courses": ["Specialized high school for gifted students in science and mathematics", "Graduated with Academic Excellence Award"]
+    }
+  ],
+  "experience": [
+    {
+      "name": "Computational Biology Laboratory, Seoul National University",
+      "position": "Undergraduate Researcher",
+      "advisor": "Prof. Chaok Seok",
+      "startDate": "2026-02-01",
+      "endDate": "",
+      "location": "Seoul, South Korea",
+      "summary": "Structure-based machine learning for understanding dynamic biomolecular behavior.",
+      "highlights": [
+        "Investigating structural determinants of GPCR agonism and antagonism and their coupling to receptor conformational dynamics",
+        "Contributing to protein-ligand complex modeling for the CASP17 Ligand Prediction category",
+        "Initiating a study of the structural and dynamic basis of CBAD-mediated regulation in IL-17RA signaling"
+      ]
+    },
+    {
+      "name": "Biomedical & Health Informatics Laboratory, Seoul National University",
+      "position": "Undergraduate Researcher (UROP)",
+      "advisor": "Prof. Sun Kim",
+      "startDate": "2025-09-01",
+      "endDate": "2026-01-31",
+      "location": "Seoul, South Korea",
+      "summary": "Protein language model-guided antibody engineering and mutation effect prediction.",
+      "highlights": [
+        "Contributed to an ESM-based protein language model pipeline that proposes sequence mutations via ensemble voting",
+        "Supported implementation and evaluation of the AbAgNet ddG predictor for mutation-induced changes in antibody-antigen binding affinity"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "CBPL-kit: interactive Hunter-Nash LLE simulator",
+      "startDate": "2026-03-01",
+      "endDate": "",
+      "url": "https://cbpl-kit.vercel.app/",
+      "summary": "Lead developer of an interactive platform for visualizing multistage liquid-liquid extraction using the Hunter-Nash method.",
+      "highlights": [
+        "Designed interactive ternary-diagram visualizations and stage-by-stage calculations that connect phase-equilibrium theory with extraction process design",
+        "Scheduled for integration into an undergraduate chemical engineering course at Seoul National University in Fall 2026"
+      ]
     }
   ],
   "scholarships & honors": [
@@ -67,33 +90,78 @@
       "title": "Kwanjeong Scholarship",
       "date": "2025-03-01",
       "awarder": "Kwanjeong Foundation",
-      "summary": "Merit-based scholarship awarded to outstanding university students in South Korea"
-    },
-    {
-      "title": "SNU Tomorrow's Engineers Membership (STEM)",
-      "date": "2025-03-01",
-      "awarder": "Seoul National University College of Engineering",
-      "summary": "Selective honors program in the College of Engineering for students with outstanding academic achievement"
+      "summary": "Selected as one of approximately 100 domestic scholars annually from university-nominated candidates. Awarded $2,700 per semester for four semesters."
     },
     {
       "title": "Presidential Science Scholarship",
       "date": "2023-03-01",
       "awarder": "Korea Student Aid Foundation",
-      "summary": "National merit-based scholarship for outstanding students in science and engineering"
+      "summary": "National scholarship awarded to outstanding students in STEM. Awarded $3,700 per semester for eight semesters, covering full tuition and an academic stipend."
+    },
+    {
+      "title": "Special Award, 67th National Science Fair",
+      "date": "2021-01-01",
+      "awarder": "National Science Museum",
+      "summary": "Sustained use of self-healing road-marking beads containing microorganism. Selected from 2,300 submissions nationwide at one of Korea's longest-running national science competitions."
     }
   ],
-  "certificates": [],
-  "publications": [],
+  "volunteer": [
+    {
+      "organization": "43rd International Conference on Machine Learning (ICML 2026)",
+      "position": "Conference Volunteer",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-31",
+      "location": "Seoul, South Korea",
+      "summary": "Assisted attendee registration and on-site conference operations at an international machine learning conference.",
+      "highlights": []
+    },
+    {
+      "organization": "SNU Tomorrow's Engineers Membership (STEM), College of Engineering",
+      "position": "Director of Recruitment and Volunteer Service",
+      "startDate": "2025-03-01",
+      "endDate": "",
+      "location": "Seoul, South Korea",
+      "summary": "Selective honors program in the College of Engineering.",
+      "highlights": [
+        "Led member recruitment, selection logistics and applicant communications as Director of Recruitment",
+        "Coordinated student volunteering programs as Director of Volunteer Service",
+        "Supported the selection of five STEM Vision Scholarship recipients, each awarded $1,000",
+        "Mentored engineering students on scholarships, academic pathways and AI-driven drug discovery research at the STEM Vision Fair"
+      ]
+    },
+    {
+      "organization": "Peer Tutoring Program, Seoul National University",
+      "position": "Peer Tutor",
+      "startDate": "2024-03-01",
+      "endDate": "2025-12-31",
+      "location": "Seoul, South Korea",
+      "summary": "Tutored major and basic science courses for undergraduate students.",
+      "highlights": [
+        "Major course tutor: Organic Chemistry II (2025)",
+        "Basic course tutor: Introductory Physics I (2024), Fundamentals of Physics II (2025)"
+      ]
+    }
+  ],
   "skills": [
     {
       "name": "Programming",
       "icon": "fa-solid fa-code",
-      "keywords": ["Python", "C++"]
+      "keywords": ["Python", "C++", "HTML/CSS"]
     },
     {
       "name": "Machine Learning",
       "icon": "fa-solid fa-brain",
       "keywords": ["PyTorch", "NumPy", "scikit-learn"]
+    },
+    {
+      "name": "Tools",
+      "icon": "fa-solid fa-screwdriver-wrench",
+      "keywords": ["Git", "WSL/Linux", "Docker"]
+    },
+    {
+      "name": "Process Simulation",
+      "icon": "fa-solid fa-industry",
+      "keywords": ["Aveva Process Simulator", "Pro II"]
     }
   ],
   "languages": [
@@ -112,14 +180,16 @@
     {
       "name": "Bioinformatics",
       "icon": "fa-solid fa-dna",
-      "keywords": ["Protein structure modeling", "Protein-ligand interactions"]
+      "keywords": ["Protein structure modeling", "Protein-ligand interactions", "Conformational dynamics"]
     },
     {
       "name": "Machine Learning",
       "icon": "fa-solid fa-robot",
-      "keywords": ["Generative models", "Deep learning for science"]
+      "keywords": ["Generative models", "Protein language models", "Deep learning for science"]
     }
   ],
-  "references": [],
-  "projects": []
+  "work": [],
+  "certificates": [],
+  "publications": [],
+  "references": []
 }
