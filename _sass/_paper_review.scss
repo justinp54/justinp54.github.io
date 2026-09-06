@@ -137,7 +137,7 @@
 
       a {
         display: inline-block;
-        color: #0066cc;
+        color: var(--global-theme-color);
         text-decoration: none;
         font-size: 0.875rem; // 14px (기본 13px에서 증가)
         padding: 0.2rem 0.5rem;
@@ -172,7 +172,7 @@
     &.card {
       background: var(--global-bg-color);
       border: 1px solid var(--global-divider-color);
-      border-left: 2px solid #e0e0e0;
+      border-left: 2px solid var(--global-divider-color);
       padding: 1rem 1.25rem;
       border-radius: 4px;
 
@@ -189,7 +189,7 @@
       }
 
       a {
-        color: #0066cc;
+        color: var(--global-theme-color);
         text-decoration: none;
         margin-right: 0.5rem;
 
@@ -223,7 +223,7 @@
       }
 
       a {
-        color: #0066cc;
+        color: var(--global-theme-color);
         text-decoration: none;
         font-size: 0.75rem;
 
