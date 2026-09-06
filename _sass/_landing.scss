@@ -22,8 +22,9 @@
 .panel {
   display: flex;
   align-items: center;
-  min-height: 100vh;
-  padding: $space-section $space-lg;
+  min-height: calc(100vh - 56px);
+  scroll-margin-top: 56px;
+  padding: $space-xxl $space-lg;
   max-width: $landing-max-width;
   margin: 0 auto;
 
