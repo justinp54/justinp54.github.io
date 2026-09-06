@@ -7,11 +7,31 @@
 }
 
 // 3D 무대는 화면에 고정되어 본문 뒤에 깔린다
+// 무대는 본문 오른쪽의 빈 영역만 차지한다
 .landing-stage {
   position: fixed;
-  inset: 0;
+  top: 56px;
+  right: 0;
+  bottom: 0;
+  width: 46%;
   z-index: 0;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+
+  @media (max-width: $bp-tablet) {
+    display: none;
+  }
+}
+
+.landing-stage.is-ready {
+  opacity: 1;
+}
+
+.landing-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .landing {
