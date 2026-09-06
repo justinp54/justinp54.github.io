@@ -1,0 +1,97 @@
+/*******************************************************************************
+ * 디자인 토큰. 타이포그래피, 간격, 모서리 반경 체계를 한곳에서 정의한다.
+ * 색은 기존 _variables.scss와 _themes.scss의 값을 그대로 쓴다.
+ ******************************************************************************/
+
+// 타이포그래피: 큰 제목일수록 자간을 좁히고, 작은 라벨은 자간을 넓힌다
+$type-display-xl-size: 4.5rem;
+$type-display-xl-weight: 600;
+$type-display-xl-leading: 1.05;
+$type-display-xl-tracking: -0.04em;
+
+$type-display-lg-size: 3.25rem;
+$type-display-lg-weight: 600;
+$type-display-lg-leading: 1.1;
+$type-display-lg-tracking: -0.032em;
+
+$type-display-md-size: 2.5rem;
+$type-display-md-weight: 600;
+$type-display-md-leading: 1.15;
+$type-display-md-tracking: -0.025em;
+
+$type-headline-size: 1.75rem;
+$type-headline-weight: 600;
+$type-headline-leading: 1.2;
+$type-headline-tracking: -0.021em;
+
+$type-subhead-size: 1.25rem;
+$type-subhead-weight: 400;
+$type-subhead-leading: 1.4;
+$type-subhead-tracking: -0.01em;
+
+$type-body-lg-size: 1.125rem;
+$type-body-size: 1rem;
+$type-body-weight: 400;
+$type-body-leading: 1.5;
+
+$type-eyebrow-size: 0.8125rem;
+$type-eyebrow-weight: 500;
+$type-eyebrow-tracking: 0.04em;
+
+// 간격: 4px를 기본 단위로 삼는다
+$space-xxs: 0.25rem;
+$space-xs: 0.5rem;
+$space-sm: 0.75rem;
+$space-md: 1rem;
+$space-lg: 1.5rem;
+$space-xl: 2rem;
+$space-xxl: 3rem;
+$space-section: 6rem;
+
+// 모서리 반경: 버튼은 8px, 카드는 12px, 큰 패널은 16px
+$radius-xs: 4px;
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-xxl: 24px;
+$radius-pill: 9999px;
+
+// 반응형 기준점
+$bp-mobile: 480px;
+$bp-mobile-lg: 768px;
+$bp-tablet: 1024px;
+$bp-desktop: 1280px;
+$bp-desktop-xl: 1440px;
+
+// 랜딩 최대 콘텐츠 폭
+$landing-max-width: 1280px;
+
+@mixin type-display-xl {
+  font-size: $type-display-xl-size;
+  font-weight: $type-display-xl-weight;
+  line-height: $type-display-xl-leading;
+  letter-spacing: $type-display-xl-tracking;
+
+  @media (max-width: $bp-mobile-lg) {
+    font-size: $type-display-md-size;
+  }
+}
+
+@mixin type-display-lg {
+  font-size: $type-display-lg-size;
+  font-weight: $type-display-lg-weight;
+  line-height: $type-display-lg-leading;
+  letter-spacing: $type-display-lg-tracking;
+
+  @media (max-width: $bp-mobile-lg) {
+    font-size: $type-headline-size;
+  }
+}
+
+@mixin type-eyebrow {
+  font-size: $type-eyebrow-size;
+  font-weight: $type-eyebrow-weight;
+  letter-spacing: $type-eyebrow-tracking;
+  text-transform: uppercase;
+}

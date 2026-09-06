@@ -1,0 +1,163 @@
+{% assign recent_reviews = site.reviews | sort: 'date' | reverse %}
+{% assign recent_posts = site.posts | sort: 'date' | reverse %}
+{% assign recent_news = site.news | sort: 'date' | reverse %}
+{% assign featured_projects = site.projects | sort: 'importance' %}
+
+<section class="hero" id="top" data-stage="structure" data-morph="0">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="label">Undergraduate researcher &middot; Seoul National University</p>
+      <h1 class="hero-title">Junsang Park</h1>
+      <p class="hero-lead">
+        I study <strong>protein structure and protein&ndash;ligand interactions</strong>, and how <strong>machine learning</strong> can model them.
+        This site is the <strong>working record</strong>: how I read papers, work through equations, interpret algorithms, and gradually build
+        research ideas.
+      </p>
+      <p class="hero-meta">
+        <span class="mono">B.S. Chemical and Biological Engineering</span>
+        <span class="mono">Minor in Computer Science</span>
+      </p>
+    </div>
+    <figure class="hero-portrait">
+      <img src="{{ '/assets/img/prof_pic.jpg' | relative_url }}" alt="Junsang Park" loading="lazy">
+    </figure>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">&darr;</div>
+</section>
+
+<div class="landing-shell">
+  <nav class="landing-index" aria-label="Section index">
+    <ol>
+      <li>
+        <a href="#research" data-index="research"><span class="mono">01</span> Research</a>
+      </li>
+      <li>
+        <a href="#reviews" data-index="reviews"><span class="mono">02</span> Paper Reviews</a>
+      </li>
+      <li>
+        <a href="#journal" data-index="journal"><span class="mono">03</span> Journal</a>
+      </li>
+      <li>
+        <a href="#news" data-index="news"><span class="mono">04</span> News</a>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="landing-content">
+    <section class="panel" id="research" data-stage="binding" data-morph="0.35">
+      <p class="label">01 &mdash; Research</p>
+      <h2 class="panel-title">What I work on</h2>
+      <p class="panel-body">
+        Proteins do their work by moving. I study how <strong>structure and conformational dynamics</strong> decide what a protein binds and how it
+        passes a signal on, and how machine learning can predict both.
+      </p>
+
+      <h3 class="sub-label">Research interests</h3>
+      <ul class="focus-list">
+        <li class="mono">Protein&ndash;ligand interaction modeling</li>
+        <li class="mono">Protein structure representations and embeddings</li>
+        <li class="mono">Generative models (diffusion and flow-based methods)</li>
+        <li class="mono">Conformational dynamics and receptor activation</li>
+      </ul>
+
+      <h3 class="sub-label">Positions</h3>
+      <dl class="record">
+        <div>
+          <dt class="mono">2026.02 &ndash;</dt>
+          <dd>
+            Computational Biology Laboratory &middot; Prof. Chaok Seok
+            <span class="record-topics">GPCR agonism and antagonism &middot; CASP17 ligand prediction &middot; IL-17RA signaling</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="mono">2025.09 &ndash; 2026.01</dt>
+          <dd>
+            Biomedical &amp; Health Informatics Laboratory &middot; Prof. Sun Kim
+            <span class="record-topics">Protein language models &middot; antibody engineering &middot; mutation effect prediction</span>
+          </dd>
+        </div>
+      </dl>
+
+      {% if featured_projects.size > 0 %}
+        <h3 class="sub-label">Projects</h3>
+        <ul class="record-list">
+          {% for project in featured_projects limit: 3 %}
+            <li>
+              <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+              <span>{{ project.description }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <p class="panel-links">
+        <a href="{{ '/projects/' | relative_url }}">All projects</a>
+        <a href="{{ '/cv/' | relative_url }}">CV</a>
+      </p>
+    </section>
+
+    <section class="panel" id="reviews" data-stage="docking" data-morph="0.6">
+      <p class="label">02 &mdash; Paper Reviews</p>
+      <h2 class="panel-title">Notes on papers I read</h2>
+      <p class="panel-body">
+        <strong>Structured reading notes</strong> on machine learning and bioinformatics papers, from the problem setting through the equations to
+        what the results show.
+      </p>
+      {% if recent_reviews.size > 0 %}
+        <ul class="record-list">
+          {% for review in recent_reviews limit: 3 %}
+            <li>
+              <a href="{{ review.url | relative_url }}">{{ review.title }}</a>
+              <span class="mono">
+                {{- review.date | date: '%Y.%m.%d' -}}
+                {%- if review.depth %} &middot; {{ review.depth }}{% endif -%}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <p class="panel-links">
+        <a href="{{ '/reviews/' | relative_url }}">All {{ recent_reviews.size }} reviews</a>
+      </p>
+    </section>
+
+    <section class="panel" id="journal" data-stage="dispersal" data-morph="0.8">
+      <p class="label">03 &mdash; Journal</p>
+      <h2 class="panel-title">Shorter notes, work in progress</h2>
+      <p class="panel-body"><strong>Short, informal entries</strong> on my study process, experiments, and occasional side interests.</p>
+      {% if recent_posts.size > 0 %}
+        <ul class="record-list">
+          {% for post in recent_posts limit: 3 %}
+            <li>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="mono">{{ post.date | date: '%Y.%m.%d' }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="panel-links"><a href="{{ '/blog/' | relative_url }}">All entries</a></p>
+      {% else %}
+        <p class="record-empty mono">No entries yet.</p>
+      {% endif %}
+    </section>
+
+    <section class="panel" id="news" data-stage="calm" data-morph="1">
+      <p class="label">04 &mdash; News</p>
+      <h2 class="panel-title">Recent</h2>
+      {% if recent_news.size > 0 %}
+        <dl class="record">
+          {% for item in recent_news limit: 4 %}
+            <div>
+              <dt class="mono">{{ item.date | date: '%Y.%m' }}</dt>
+              <dd>{{ item.content | strip_html | strip | truncatewords: 22 }}</dd>
+            </div>
+          {% endfor %}
+        </dl>
+      {% endif %}
+      <p class="panel-links">
+        <a href="{{ '/news/' | relative_url }}">All news</a>
+        <a href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a>
+        <a href="https://github.com/{{ site.data.socials.github_username }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </p>
+    </section>
+  </div>
+</div>
