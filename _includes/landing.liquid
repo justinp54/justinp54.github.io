@@ -44,12 +44,15 @@
   <div class="landing-content">
     <section class="panel" id="research" data-stage="binding" data-morph="0.35">
       <p class="label">01 &mdash; Research</p>
-      <h2 class="panel-title">Two labs, one question</h2>
+      <h2 class="panel-title">What I work on</h2>
       <p class="panel-body">
-        How structure and motion decide binding. At the Computational Biology Laboratory I work on GPCR agonism and antagonism, protein&ndash;ligand
-        complex modeling for CASP17, and CBAD-mediated regulation in IL-17RA signaling. Before that I worked on protein language models for antibody
-        engineering.
+        Proteins do their work by moving. I study how structure and conformational dynamics decide what a protein binds and how it passes a signal on,
+        and how machine learning can predict both. At the moment that means GPCR agonism and antagonism, protein&ndash;ligand complex modeling for
+        CASP17, and CBAD-mediated regulation in IL-17RA signaling. Earlier I worked on protein language models for antibody engineering and mutation
+        effect prediction.
       </p>
+
+      <h3 class="sub-label">Positions</h3>
       <dl class="record">
         <div>
           <dt class="mono">2026.02 &ndash;</dt>
@@ -60,7 +63,9 @@
           <dd>Biomedical &amp; Health Informatics Laboratory &middot; Prof. Sun Kim</dd>
         </div>
       </dl>
+
       {% if featured_projects.size > 0 %}
+        <h3 class="sub-label">Projects</h3>
         <ul class="record-list">
           {% for project in featured_projects limit: 3 %}
             <li>
@@ -70,8 +75,9 @@
           {% endfor %}
         </ul>
       {% endif %}
+
       <p class="panel-links">
-        <a href="{{ '/projects/' | relative_url }}">Projects</a>
+        <a href="{{ '/projects/' | relative_url }}">All projects</a>
         <a href="{{ '/cv/' | relative_url }}">CV</a>
       </p>
     </section>
