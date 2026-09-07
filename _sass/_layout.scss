@@ -31,6 +31,24 @@ body.sticky-bottom-footer {
   max-width: $max-content-width;
 }
 
+// 상단 막대의 이름이 본문 제목과 같은 세로선에서 시작하도록 폭과 여백을 맞춘다
+// 막대 자체의 좌우 여백은 없애고 안쪽 컨테이너가 여백을 담당하게 한다
+#navbar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#navbar .container {
+  max-width: $landing-max-width;
+  padding-left: $space-lg;
+  padding-right: $space-lg;
+
+  @media (max-width: $bp-mobile-lg) {
+    padding-left: $space-md;
+    padding-right: $space-md;
+  }
+}
+
 // Profile
 .profile {
   img {
