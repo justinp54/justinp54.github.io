@@ -308,6 +308,7 @@ article h1 {
   letter-spacing: $type-display-md-tracking;
 }
 
+.post-list h2,
 .post-list h3,
 .card-title,
 article h2 {
@@ -319,6 +320,25 @@ article h3,
 article h4 {
   font-weight: $type-card-title-weight;
   letter-spacing: $type-subhead-tracking;
+}
+
+// CV 항목 제목은 의미상 h3이지만 크기는 목록 항목에 맞춘다
+.cv h3.title,
+.card h3.title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: $type-subhead-tracking;
+  color: var(--global-text-color);
+  margin-bottom: $space-xxs;
+}
+
+// 그 아래 부가 정보는 제목이 아니므로 본문 색과 크기를 쓴다
+.cv p.ml-1,
+.card p.ml-1 {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin-bottom: $space-xxs;
+  color: var(--global-text-color-light);
 }
 
 // 목록의 날짜와 부가 정보는 데이터 라벨 규칙을 따른다
