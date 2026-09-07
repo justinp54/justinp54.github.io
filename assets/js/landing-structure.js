@@ -17,8 +17,8 @@ const QUALITY = IS_LOW_POWER ? { surfacePoints: 11000, pixelRatio: 1.2 } : { sur
 
 // 배치는 CSS와 같은 기준으로 나눠야 색과 레이아웃이 어긋나지 않는다
 const LAYOUTS = {
-  narrow: { dotSize: 1.6, pocketSize: 2.1, fitMargin: 0.78 },
-  wide: { dotSize: 0.9, pocketSize: 1.25, fitMargin: 1.18 },
+  narrow: { dotSize: 1.6, pocketSize: 1.35, fitMargin: 0.78 },
+  wide: { dotSize: 0.9, pocketSize: 0.8, fitMargin: 1.18 },
 };
 const layout = () => (isNarrow() ? LAYOUTS.narrow : LAYOUTS.wide);
 
@@ -64,6 +64,9 @@ async function init(dataUrl) {
   const pocket = dotCloud(data.pocket, { color: PALETTES.light.pocket, size: layout().pocketSize, opacity: 1 });
   model.add(pocket);
   const carbonMaterials = buildLigand(model, data.ligand, data.bonds);
+  model.children.forEach((child) => {
+    if (child.isInstancedMesh) child.renderOrder = 1;
+  });
 
   // 사용자가 테마를 바꾸면 탄소와 표면 색을 함께 뒤집는다
   const applyTheme = () => {
@@ -219,7 +222,7 @@ function buildLigand(model, atoms, bonds) {
   // 원자와 결합을 각각 인스턴스 하나로 묶어 그리기 호출을 줄인다
   const carbonMaterials = [];
   const atomMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const atomMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.45, 12, 12), atomMaterial, atoms.length);
+  const atomMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.55, 14, 14), atomMaterial, atoms.length);
   const matrix = new THREE.Matrix4();
   const carbonIndices = [];
 
@@ -234,7 +237,7 @@ function buildLigand(model, atoms, bonds) {
   model.add(atomMesh);
 
   const bondMaterial = new THREE.MeshBasicMaterial({ color: PALETTES.light.carbon });
-  const bondMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.16, 0.16, 1, 6), bondMaterial, bonds.length);
+  const bondMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.2, 0.2, 1, 8), bondMaterial, bonds.length);
   const up = new THREE.Vector3(0, 1, 0);
   const quaternion = new THREE.Quaternion();
   const scale = new THREE.Vector3(1, 1, 1);
