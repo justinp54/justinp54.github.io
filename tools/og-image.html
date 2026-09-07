@@ -1,0 +1,99 @@
+<!--
+  공유용 미리보기 이미지를 만드는 페이지.
+  로컬 서버로 열고 1200x630 화면에서 화면을 찍어 assets/img/og-image.jpg로 저장한다.
+-->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 1200px;
+        height: 630px;
+        background: #fff;
+        font-family: Roboto, system-ui, sans-serif;
+        overflow: hidden;
+        position: relative;
+      }
+      .stage {
+        position: absolute;
+        top: 0;
+        right: -40px;
+        bottom: 0;
+        width: 620px;
+      }
+      .stage canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .scrim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          #fff 0%,
+          #fff 46%,
+          rgba(255, 255, 255, 0.9) 58%,
+          rgba(255, 255, 255, 0.35) 74%,
+          rgba(255, 255, 255, 0) 88%
+        );
+      }
+      .text {
+        position: absolute;
+        left: 72px;
+        top: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        z-index: 2;
+        max-width: 620px;
+      }
+      .label {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #0a7d6d;
+      }
+      h1 {
+        font-size: 68px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        color: #16181c;
+      }
+      p {
+        font-size: 21px;
+        line-height: 1.5;
+        color: #5f6570;
+        max-width: 540px;
+      }
+      .meta {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 14px;
+        color: #5f6570;
+        letter-spacing: 0.01em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage" data-landing-stage data-structure="../assets/json/structure_6cm4.json"></div>
+    <div class="scrim"></div>
+    <div class="text">
+      <p class="label">Undergraduate researcher · Seoul National University</p>
+      <h1>Junsang Park</h1>
+      <p>Protein structure, protein–ligand interactions, and the machine learning that models them.</p>
+      <p class="meta">justinp54.github.io</p>
+    </div>
+    <script type="module" src="../assets/js/landing-structure.js"></script>
+  </body>
+</html>
