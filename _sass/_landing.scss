@@ -250,6 +250,52 @@ html[data-theme="dark"] .landing-body {
   }
 }
 
+// 손가락으로 누르는 화면에서는 링크가 최소 크기를 갖도록 한다
+@media (pointer: coarse) {
+  .post-tags a,
+  .post-list .post-tags a,
+  .panel-links a,
+  .record-list a,
+  .navbar-nav .nav-link,
+  .d-flex.flex-wrap > a,
+  #toc-sidebar a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  .post-tags a,
+  .panel-links a {
+    padding-right: $space-xs;
+  }
+
+  // 메뉴 여닫기 버튼은 문장 속 링크와 달리 크기를 키워도 배치가 흐트러지지 않는다
+  .navbar-toggler {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+// 키보드 사용자가 내비게이션을 건너뛸 수 있게 한다. 평소에는 화면 밖에 둔다
+.skip-link {
+  position: fixed;
+  top: $space-xs;
+  left: $space-xs;
+  z-index: 100;
+  padding: $space-xs $space-md;
+  border-radius: $radius-md;
+  background-color: var(--global-bg-color);
+  border: 1px solid var(--global-theme-color);
+  color: var(--global-theme-text-color);
+  font-weight: 500;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /*******************************************************************************
  * 내부 페이지도 랜딩과 같은 타이포그래피 규칙을 따르게 한다.
  ******************************************************************************/
