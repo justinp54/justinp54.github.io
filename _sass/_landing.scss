@@ -4,6 +4,33 @@
 
 .landing-body {
   background-color: var(--global-bg-color);
+
+  // 층의 색은 배경색과 같되 투명도만 다르게 쓴다
+  --landing-scrim-color: 255, 255, 255;
+}
+
+html[data-theme="dark"] .landing-body {
+  --landing-scrim-color: 28, 28, 29;
+}
+
+// 단백질 위에 얇게 덮여 글자가 놓이는 영역만 가린다
+.landing-scrim {
+  position: fixed;
+  inset: 56px 0 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgb(var(--landing-scrim-color)) 0%,
+    rgba(var(--landing-scrim-color), 0.94) 42%,
+    rgba(var(--landing-scrim-color), 0.72) 58%,
+    rgba(var(--landing-scrim-color), 0.3) 72%,
+    rgba(var(--landing-scrim-color), 0) 84%
+  );
+
+  @media (max-width: $bp-tablet) {
+    display: none;
+  }
 }
 
 // 3D 무대는 화면에 고정되어 본문 뒤에 깔린다
@@ -19,17 +46,13 @@
   opacity: 0;
   transition: opacity 0.8s ease;
 
-  // 본문과 만나는 왼쪽 가장자리는 서서히 사라지게 하여 글자를 덮지 않는다
-  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 34%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 34%);
-
   @media (max-width: $bp-tablet) {
     display: none;
   }
 }
 
 .landing-stage.is-ready {
-  opacity: 0.35;
+  opacity: 0.75;
 }
 
 // 히어로를 벗어나면 구조가 전면으로 나온다
@@ -45,7 +68,7 @@
 
 .landing {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: $landing-max-width;
   margin: 0 auto;
   padding: 0 $space-lg;
