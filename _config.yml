@@ -135,6 +135,9 @@ newsletter:
 # Collections
 # -----------------------------------------------------------------------------
 
+# 글의 날짜를 한국 시간으로 읽어야 오늘 쓴 글이 미래로 밀리지 않는다
+timezone: Asia/Seoul
+
 collections:
   news:
     defaults:
