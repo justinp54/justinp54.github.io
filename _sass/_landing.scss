@@ -132,15 +132,21 @@ html[data-theme="dark"] .landing-body {
   }
 }
 
+// 사진을 이름 위에 두어 사람이 먼저 읽히도록 한다
 .hero-inner {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: $space-xxl;
+  gap: $space-lg;
+  margin-bottom: $space-xl;
 
   @media (max-width: $bp-mobile-lg) {
-    flex-direction: column-reverse;
-    gap: $space-xl;
+    gap: $space-md;
   }
+}
+
+.hero-heading {
+  min-width: 0;
 }
 
 .hero-text {
@@ -150,12 +156,8 @@ html[data-theme="dark"] .landing-body {
 
 .hero-title {
   @include type-display-xl;
-  margin: 0 0 $space-lg;
+  margin: 0;
   color: var(--global-text-color);
-
-  @media (max-width: $bp-mobile-lg) {
-    margin-bottom: $space-xl;
-  }
 }
 
 .hero-lead {
@@ -174,19 +176,14 @@ html[data-theme="dark"] .landing-body {
 
 .hero-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: $space-md;
+  flex-direction: column;
+  gap: $space-xs;
   margin: 0;
-
-  @media (max-width: $bp-mobile-lg) {
-    flex-direction: column;
-    gap: $space-xs;
-  }
 }
 
 .hero-portrait {
   flex: 0 0 auto;
-  width: 9rem;
+  width: 6.5rem;
   margin: 0;
 
   background-color: var(--global-bg-color);
@@ -229,6 +226,26 @@ html[data-theme="dark"] .landing-body {
 
   50% {
     transform: translateY(0.35rem);
+  }
+}
+
+// 화면이 낮으면 히어로 내용이 고정 푸터에 닿으므로 여백을 줄인다
+@media (max-height: 820px) and (min-width: #{$bp-mobile-lg + 1px}) {
+  .hero {
+    padding: $space-xl 0;
+  }
+
+  .hero-inner {
+    gap: $space-md;
+    margin-bottom: $space-lg;
+  }
+
+  .hero-lead {
+    margin-bottom: $space-md;
+  }
+
+  .scroll-cue {
+    margin-top: $space-lg;
   }
 }
 
