@@ -284,7 +284,8 @@ article h4 {
 
 // 목록 페이지는 넓게 쓰되 글 본문은 읽기 편한 폭으로 제한한다
 article.post-content {
-  max-width: 46rem;
+  // 17px 본문에서 한 줄이 65~75자에 들어오는 폭
+  max-width: 40rem;
 }
 
 // 표와 코드, 그림은 넓게 써야 읽히므로 제한에서 벗어나게 한다
