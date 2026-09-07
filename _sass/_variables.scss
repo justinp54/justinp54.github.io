@@ -24,7 +24,10 @@ $pink-color: #f92080 !default;
 $pink-color-light: #ffdddd !default;
 $yellow-color: #efcc00 !default;
 
-$grey-color: #828282 !default;
+// 흰 배경에서 4.5:1을 넘도록 조정한 보조 텍스트 색
+$grey-color: #5f6570 !default;
+// 어두운 배경에서 4.5:1을 넘도록 조정한 보조 텍스트 색
+$grey-color-on-dark: #adb3bd !default;
 $grey-color-light: color.adjust($grey-color, $lightness: 40%);
 $grey-color-dark: #1c1c1d;
 $grey-900: #212529;
@@ -34,6 +37,8 @@ $black-color: #000000 !default;
 
 // Theme colors
 $theme-color: #09ad94 !default;
+// 작은 글자에 쓰는 강조색은 흰 배경에서 4.5:1을 넘도록 더 진하게 쓴다
+$theme-color-on-light: #0a7d6d !default;
 $theme-color-light: color.adjust($theme-color, $lightness: 15%);
 $theme-color-dark: color.adjust($theme-color, $lightness: -10%);
 $theme-color-hover: color.adjust($theme-color, $lightness: -8%);
