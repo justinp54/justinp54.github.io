@@ -150,6 +150,11 @@ collections:
     permalink: /reviews/:slug/
     defaults:
       layout: post
+  experiments:
+    output: true
+    permalink: /experiments/:slug/
+    defaults:
+      layout: page
 
 # -----------------------------------------------------------------------------
 # Jekyll settings

@@ -3,7 +3,7 @@ layout: default
 permalink: /blog/
 title: Journal
 nav: false # 첫 포스트를 쓰면 true로 바꾼다
-nav_order: 4
+nav_order: 5
 pagination:
   enabled: true
   collection: posts

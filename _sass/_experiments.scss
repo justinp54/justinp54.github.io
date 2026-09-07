@@ -1,0 +1,198 @@
+// 실험 목록과 실험 페이지에서 함께 쓰는 스타일
+
+.experiment-list {
+  list-style: none;
+  margin: $space-xl 0 0;
+  padding: 0;
+  max-width: 40rem;
+
+  li {
+    border-top: 1px solid var(--global-divider-color);
+  }
+
+  li:last-child {
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+
+  a {
+    display: block;
+    padding: $space-md 0;
+    color: var(--global-text-color);
+    text-decoration: none;
+  }
+
+  a:hover .name,
+  a:focus-visible .name {
+    color: var(--global-theme-text-color);
+  }
+
+  .name {
+    display: block;
+    font-weight: 600;
+    font-size: $type-card-title-size;
+    letter-spacing: $type-card-title-tracking;
+  }
+
+  .summary {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--global-text-color-light);
+  }
+
+  .meta {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--global-text-color-light);
+  }
+}
+
+// 실험 본문은 데모가 주인공이므로 글보다 넓게 쓴다
+.experiment {
+  max-width: 46rem;
+}
+
+.booth {
+  margin: $space-lg 0;
+}
+
+// 미리보기는 세로 화면이므로 비율을 고정해 화면 흔들림을 막는다
+.booth-stage {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-width: 26rem;
+  background: #14161a;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.booth-stage canvas,
+.booth-stage video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.booth-stage video {
+  display: none;
+}
+
+// 촬영 직전 숫자를 화면 한가운데 크게 띄운다
+.booth-count {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.booth-count.is-on {
+  display: flex;
+}
+
+// 셔터가 터진 느낌을 흰 화면으로 짧게 준다
+.booth-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.booth-flash.is-firing {
+  animation: booth-flash 0.32s ease-out;
+}
+
+@keyframes booth-flash {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.booth-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: $space-md;
+}
+
+.booth-effects {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 $space-sm;
+  padding: 0;
+  list-style: none;
+}
+
+.booth-effects button {
+  margin: 0 0.5rem 0.5rem 0;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: $radius-sm;
+  background: transparent;
+  color: var(--global-text-color);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.booth-effects button[aria-pressed="true"] {
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-text-color);
+  font-weight: 600;
+}
+
+.booth-action {
+  margin: 0 0.5rem 0.5rem 0;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--global-theme-color);
+  border-radius: $radius-sm;
+  background: var(--global-theme-color);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.booth-action[disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.booth-action.is-secondary {
+  border-color: var(--global-divider-color);
+  background: transparent;
+  color: var(--global-text-color);
+}
+
+.booth-status {
+  margin: $space-sm 0 0;
+  color: var(--global-text-color-light);
+  font-size: 0.9375rem;
+}
+
+// 결과지는 실제 인화지처럼 여백을 두고 보여 준다
+.booth-result {
+  margin-top: $space-lg;
+}
+
+.booth-result img {
+  max-width: 18rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: $radius-sm;
+}
+
+@media (max-width: $bp-mobile-lg) {
+  .booth-stage {
+    max-width: 100%;
+  }
+}

@@ -2,7 +2,7 @@
 layout: about
 title: About
 nav: true
-nav_order: 6
+nav_order: 7
 permalink: /about/
 subtitle: >
   Undergraduate student at <strong>Seoul National University</strong><br>
