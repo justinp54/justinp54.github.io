@@ -23,6 +23,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-experiments",
+          title: "Experiments",
+          description: "Small things I built over a weekend. Each one runs in the browser, right on its page.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/experiments/";
+          },
         },{id: "nav-news",
           title: "News",
           description: "",
@@ -44,7 +51,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/about/";
           },
-        },{id: "news-entered-daejeon-science-high-school-for-the-gifted-a-specialized-high-school-for-gifted-students-in-science-and-mathematics",
+        },{id: "experiments-photo-booth",
+          title: 'Photo Booth',
+          description: "A four-cut photo booth where the effect is a shader, not a filter API.",
+          section: "Experiments",handler: () => {
+              window.location.href = "/experiments/photo-booth/";
+            },},{id: "news-entered-daejeon-science-high-school-for-the-gifted-a-specialized-high-school-for-gifted-students-in-science-and-mathematics",
           title: 'Entered Daejeon Science High School for the Gifted, a specialized high school for...',
           description: "",
           section: "News",},{id: "news-received-a-special-award-at-the-67th-national-science-fair-from-the-national-science-museum-selected-from-2-300-submissions-nationwide",
