@@ -22,10 +22,10 @@ html[data-theme="dark"] .landing-body {
   background: linear-gradient(
     to right,
     rgb(var(--landing-scrim-color)) 0%,
-    rgba(var(--landing-scrim-color), 0.94) 42%,
-    rgba(var(--landing-scrim-color), 0.72) 58%,
-    rgba(var(--landing-scrim-color), 0.3) 72%,
-    rgba(var(--landing-scrim-color), 0) 84%
+    rgb(var(--landing-scrim-color)) 56%,
+    rgba(var(--landing-scrim-color), 0.88) 66%,
+    rgba(var(--landing-scrim-color), 0.45) 78%,
+    rgba(var(--landing-scrim-color), 0) 92%
   );
 
   @media (max-width: $bp-tablet) {
@@ -263,7 +263,7 @@ html[data-theme="dark"] .landing-body {
 .landing-content {
   min-width: 0;
   // 우측은 3D 무대가 들어갈 자리로 비워 둔다
-  max-width: 46rem;
+  max-width: 40rem;
 }
 
 .panel {
