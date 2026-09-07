@@ -28,7 +28,7 @@ async function init(dataUrl) {
   stage.appendChild(canvas);
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 2000);
@@ -45,7 +45,15 @@ async function init(dataUrl) {
     const palette = PALETTES[currentTheme()];
     surface.material.color.setHex(palette.surface);
     surface.material.opacity = palette.surfaceOpacity;
-    carbonMaterials.forEach((material) => material.color.setHex(palette.carbon));
+    carbonMaterials.forEach((entry) => {
+      if (entry.mesh) {
+        const color = new THREE.Color(palette.carbon);
+        entry.indices.forEach((index) => entry.mesh.setColorAt(index, color));
+        entry.mesh.instanceColor.needsUpdate = true;
+      } else {
+        entry.color.setHex(palette.carbon);
+      }
+    });
   };
   applyTheme();
   new MutationObserver(applyTheme).observe(document.documentElement, {
@@ -81,6 +89,10 @@ async function init(dataUrl) {
   let spin = 0;
 
   const tick = () => {
+    requestAnimationFrame(tick);
+    // 다른 탭을 보고 있을 때는 그리지 않아 배터리를 아낀다
+    if (document.hidden) return;
+
     // 스크롤이 멈춰도 부드럽게 따라가도록 목표값에 서서히 다가간다
     progress += (target - progress) * 0.06;
     const eased = progress * progress * (3 - 2 * progress);
@@ -93,7 +105,6 @@ async function init(dataUrl) {
     camera.lookAt(look);
 
     renderer.render(scene, camera);
-    requestAnimationFrame(tick);
   };
   tick();
 
@@ -149,28 +160,41 @@ function dotTexture() {
 }
 
 function buildLigand(model, atoms, bonds) {
+  // 원자와 결합을 각각 인스턴스 하나로 묶어 그리기 호출을 줄인다
   const carbonMaterials = [];
-  const sphere = new THREE.SphereGeometry(0.45, 14, 14);
-  atoms.forEach(([x, y, z, element]) => {
+  const atomMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const atomMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.45, 12, 12), atomMaterial, atoms.length);
+  const matrix = new THREE.Matrix4();
+  const carbonIndices = [];
+
+  atoms.forEach(([x, y, z, element], index) => {
+    matrix.makeTranslation(x, y, z);
+    atomMesh.setMatrixAt(index, matrix);
     const known = ELEMENT_COLORS[element];
-    const material = new THREE.MeshBasicMaterial({ color: new THREE.Color(known || PALETTES.light.carbon) });
-    if (!known) carbonMaterials.push(material);
-    const atom = new THREE.Mesh(sphere, material);
-    atom.position.set(x, y, z);
-    model.add(atom);
+    atomMesh.setColorAt(index, new THREE.Color(known || PALETTES.light.carbon));
+    if (!known) carbonIndices.push(index);
   });
+  atomMesh.instanceColor.needsUpdate = true;
+  model.add(atomMesh);
 
   const bondMaterial = new THREE.MeshBasicMaterial({ color: PALETTES.light.carbon });
-  carbonMaterials.push(bondMaterial);
+  const bondMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.16, 0.16, 1, 6), bondMaterial, bonds.length);
   const up = new THREE.Vector3(0, 1, 0);
-  bonds.forEach(([i, j]) => {
+  const quaternion = new THREE.Quaternion();
+  const scale = new THREE.Vector3(1, 1, 1);
+  const middle = new THREE.Vector3();
+
+  bonds.forEach(([i, j], index) => {
     const start = new THREE.Vector3(...atoms[i].slice(0, 3));
     const end = new THREE.Vector3(...atoms[j].slice(0, 3));
-    const bond = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, start.distanceTo(end), 6), bondMaterial);
-    bond.position.copy(start).add(end).multiplyScalar(0.5);
-    bond.quaternion.setFromUnitVectors(up, end.clone().sub(start).normalize());
-    model.add(bond);
+    middle.copy(start).add(end).multiplyScalar(0.5);
+    quaternion.setFromUnitVectors(up, end.clone().sub(start).normalize());
+    scale.set(1, start.distanceTo(end), 1);
+    bondMesh.setMatrixAt(index, matrix.compose(middle, quaternion, scale));
   });
+  model.add(bondMesh);
 
+  // 탄소만 테마에 따라 색이 바뀌므로 갱신에 필요한 정보를 넘긴다
+  carbonMaterials.push({ mesh: atomMesh, indices: carbonIndices }, bondMaterial);
   return carbonMaterials;
 }
