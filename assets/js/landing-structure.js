@@ -18,7 +18,7 @@ const QUALITY = IS_COMPACT
 const ELEMENT_COLORS = { N: "#4a86e8", O: "#e05a48", F: "#3fae7a", S: "#d8a92b" };
 const PALETTES = {
   light: { carbon: 0x16181c, surface: 0x6b7280, surfaceOpacity: 0.72, pocket: 0x09ad94 },
-  lightCompact: { carbon: 0x16181c, surface: 0x3f4650, surfaceOpacity: 0.95, pocket: 0x00806c },
+  lightCompact: { carbon: 0x16181c, surface: 0x4b525c, surfaceOpacity: 0.9, pocket: 0x00806c },
   dark: { carbon: 0xf2f4f6, surface: 0xdfe3e8, surfaceOpacity: 0.9, pocket: 0x3fdcc0 },
   darkCompact: { carbon: 0xffffff, surface: 0xffffff, surfaceOpacity: 1, pocket: 0x5cf0d4 },
 };
