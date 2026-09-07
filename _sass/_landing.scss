@@ -121,7 +121,7 @@ html[data-theme="dark"] .landing-body {
 /* 히어로 */
 
 .hero {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 56px - 35px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -214,6 +214,7 @@ html[data-theme="dark"] .landing-body {
 .scroll-cue {
   margin-top: $space-xxl;
   font-size: 1.25rem;
+  line-height: 1.9;
   color: var(--global-text-color-light);
   animation: landing-cue 2s ease-in-out infinite;
 }
