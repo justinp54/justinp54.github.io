@@ -82,7 +82,7 @@ html[data-theme="dark"] .landing-body {
   }
 
   span:first-child {
-    color: var(--global-theme-color);
+    color: var(--global-theme-text-color);
   }
 }
 
@@ -115,7 +115,7 @@ html[data-theme="dark"] .landing-body {
 .label {
   @include type-eyebrow;
   margin-bottom: $space-sm;
-  color: var(--global-theme-color);
+  color: var(--global-theme-text-color);
 }
 
 /* 히어로 */
@@ -337,11 +337,11 @@ article.post-content .highlight {
 
   li a.is-active {
     border-left-color: var(--global-theme-color);
-    color: var(--global-theme-color);
+    color: var(--global-theme-text-color);
   }
 
   li a.is-active .mono {
-    color: var(--global-theme-color);
+    color: var(--global-theme-text-color);
   }
 
   @media (max-width: $bp-tablet) {
