@@ -4,19 +4,97 @@
 
 .landing-body {
   background-color: var(--global-bg-color);
+
+  // 층의 색은 배경색과 같되 투명도만 다르게 쓴다
+  --landing-scrim-color: 255, 255, 255;
+}
+
+html[data-theme="dark"] .landing-body {
+  --landing-scrim-color: 28, 28, 29;
+}
+
+// 단백질 위에 얇게 덮여 글자가 놓이는 영역만 가린다
+.landing-scrim {
+  position: fixed;
+  inset: 56px 0 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgb(var(--landing-scrim-color)) 0%,
+    rgb(var(--landing-scrim-color)) 56%,
+    rgba(var(--landing-scrim-color), 0.88) 66%,
+    rgba(var(--landing-scrim-color), 0.45) 78%,
+    rgba(var(--landing-scrim-color), 0) 92%
+  );
+
+  @media (max-width: $bp-tablet) {
+    background: rgba(var(--landing-scrim-color), 0.87);
+  }
 }
 
 // 3D 무대는 화면에 고정되어 본문 뒤에 깔린다
+// 무대는 본문 오른쪽의 빈 영역만 차지한다
 .landing-stage {
   position: fixed;
-  inset: 0;
+  top: 56px;
+  right: 0;
+  bottom: 0;
+  width: 46%;
   z-index: 0;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+
+  @media (max-width: $bp-tablet) {
+    width: 100%;
+    left: 0;
+  }
+}
+
+.landing-stage.is-ready {
+  opacity: 0.75;
+}
+
+// 히어로를 벗어나면 구조가 전면으로 나온다
+.landing-stage.is-ready.is-engaged {
+  opacity: 1;
+}
+
+// 구조 출처는 데이터 라벨 규칙에 맞춰 모노스페이스로 적는다
+.stage-caption {
+  position: fixed;
+  z-index: 2;
+  right: $space-xl;
+  // 맨 위로 가기 버튼을 피해 위로 올린다
+  bottom: 5.5rem;
+  margin: 0;
+  text-align: right;
+
+  // 좁은 화면에서는 자리가 부족하므로 감춘다
+  @media (max-width: $bp-tablet) {
+    display: none;
+  }
+
+  span {
+    display: block;
+    line-height: 1.5;
+  }
+
+  span:first-child {
+    color: var(--global-theme-color);
+  }
+}
+
+.landing-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .landing {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: $landing-max-width;
   margin: 0 auto;
   padding: 0 $space-lg;
@@ -48,6 +126,10 @@
   flex-direction: column;
   justify-content: center;
   padding: $space-xxl 0;
+
+  @media (max-width: $bp-mobile-lg) {
+    padding: $space-section 0 $space-xxl;
+  }
 }
 
 .hero-inner {
@@ -57,7 +139,7 @@
 
   @media (max-width: $bp-mobile-lg) {
     flex-direction: column-reverse;
-    gap: $space-lg;
+    gap: $space-xl;
   }
 }
 
@@ -70,6 +152,10 @@
   @include type-display-xl;
   margin: 0 0 $space-lg;
   color: var(--global-text-color);
+
+  @media (max-width: $bp-mobile-lg) {
+    margin-bottom: $space-xl;
+  }
 }
 
 .hero-lead {
@@ -78,6 +164,12 @@
   color: var(--global-text-color-light);
   max-width: 36rem;
   margin-bottom: $space-lg;
+
+  @media (max-width: $bp-mobile-lg) {
+    font-size: $type-body-size;
+    line-height: 1.65;
+    margin-bottom: $space-xl;
+  }
 }
 
 .hero-meta {
@@ -85,12 +177,21 @@
   flex-wrap: wrap;
   gap: $space-md;
   margin: 0;
+
+  @media (max-width: $bp-mobile-lg) {
+    flex-direction: column;
+    gap: $space-xs;
+  }
 }
 
 .hero-portrait {
   flex: 0 0 auto;
   width: 9rem;
   margin: 0;
+
+  background-color: var(--global-bg-color);
+  border-radius: $radius-lg;
+  box-shadow: 0 0 0 6px var(--global-bg-color);
 
   img {
     width: 100%;
@@ -99,9 +200,18 @@
     display: block;
   }
 
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+
   @media (max-width: $bp-mobile-lg) {
-    width: 6rem;
+    width: 7.5rem;
   }
+}
+
+.landing-body.is-scrolled .hero-portrait {
+  opacity: 0;
+  transform: translateY(-0.75rem);
 }
 
 .scroll-cue {
@@ -179,7 +289,7 @@
 .landing-content {
   min-width: 0;
   // 우측은 3D 무대가 들어갈 자리로 비워 둔다
-  max-width: 46rem;
+  max-width: 40rem;
 }
 
 .panel {

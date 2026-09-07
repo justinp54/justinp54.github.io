@@ -8,7 +8,16 @@
     {% include header.liquid %}
 
     <!-- 3D 무대는 모든 패널 뒤에 고정되어 스크롤에 따라 변한다 -->
-    <div class="landing-stage" data-landing-stage aria-hidden="true"></div>
+    <div
+      class="landing-stage"
+      data-landing-stage
+      data-structure="{{ '/assets/json/structure_6cm4.json' | relative_url }}"
+      aria-hidden="true"
+    ></div>
+
+    <!-- 무대와 본문 사이의 반투명 층. 글자가 놓이는 왼쪽만 가리고 오른쪽은 비워 둔다 -->
+    <div class="landing-scrim" aria-hidden="true"></div>
+    <p class="stage-caption mono" data-stage-caption hidden></p>
 
     <main class="landing" role="main">{{ content }}</main>
 
@@ -28,5 +37,6 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="{{ '/assets/js/landing.js' | relative_url | bust_file_cache }}"></script>
+    <script type="module" src="{{ '/assets/js/landing-structure.js' | relative_url | bust_file_cache }}"></script>
   </body>
 </html>

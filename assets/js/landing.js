@@ -15,7 +15,12 @@
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) setActiveIndex(entry.target.id);
+        if (!entry.isIntersecting) return;
+        setActiveIndex(entry.target.id);
+        // 히어로를 벗어나면 사진이 물러나고 배경 구조가 전면으로 나온다
+        const pastHero = entry.target.id !== "top";
+        stage?.classList.toggle("is-engaged", pastHero);
+        document.body.classList.toggle("is-scrolled", pastHero);
       });
     },
     { rootMargin: "-40% 0px -55% 0px" }
