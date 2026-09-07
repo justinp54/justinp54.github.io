@@ -29,7 +29,7 @@ html[data-theme="dark"] .landing-body {
   );
 
   @media (max-width: $bp-tablet) {
-    background: rgba(var(--landing-scrim-color), 0.8);
+    background: rgba(var(--landing-scrim-color), 0.87);
   }
 }
 
@@ -71,12 +71,9 @@ html[data-theme="dark"] .landing-body {
   margin: 0;
   text-align: right;
 
-  // 좁은 화면에서는 첫 화면 아래에 한 번만 두고 스크롤과 함께 사라지게 한다
+  // 좁은 화면에서는 자리가 부족하므로 감춘다
   @media (max-width: $bp-tablet) {
-    position: absolute;
-    top: calc(100vh - 7rem);
-    right: $space-md;
-    bottom: auto;
+    display: none;
   }
 
   span {
