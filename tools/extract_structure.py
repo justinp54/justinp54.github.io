@@ -21,6 +21,9 @@ POCKET_RADIUS = 6.0
 BOND_CUTOFF = 1.9
 PROBE_RADIUS = 1.4
 SAMPLES_PER_ATOM = 260
+# 결합 포켓 주변은 더 촘촘히 뽑아 리간드가 앉은 자리를 도드라지게 한다
+POCKET_SAMPLE_FACTOR = 3
+POCKET_ATOM_RADIUS = 9.0
 TARGET_SURFACE_POINTS = 30000
 
 VDW_RADII = {"C": 1.70, "N": 1.55, "O": 1.52, "S": 1.80, "F": 1.47, "P": 1.80, "CL": 1.75}
@@ -82,17 +85,20 @@ def neighbours(grid, point, cell_size):
     return found
 
 
-def surface_points(atoms):
+def surface_points(atoms, ligand):
     """Keep sampled sphere points that no other atom buries."""
     radii = [VDW_RADII.get(element, DEFAULT_RADIUS) + PROBE_RADIUS for element, _ in atoms]
     cell_size = max(radii) * 2
     grid = build_grid(atoms, cell_size)
-    unit_sphere = fibonacci_sphere(SAMPLES_PER_ATOM)
+    sparse_sphere = fibonacci_sphere(SAMPLES_PER_ATOM)
+    dense_sphere = fibonacci_sphere(SAMPLES_PER_ATOM * POCKET_SAMPLE_FACTOR)
 
     points = []
     for index, (_, centre) in enumerate(atoms):
         radius = radii[index]
         candidates = neighbours(grid, centre, cell_size)
+        near_ligand = any(math.dist(centre, atom) < POCKET_ATOM_RADIUS for _, atom in ligand)
+        unit_sphere = dense_sphere if near_ligand else sparse_sphere
         for direction in unit_sphere:
             probe = tuple(centre[axis] + direction[axis] * radius for axis in range(3))
             buried = False
@@ -127,7 +133,7 @@ def main():
         raise SystemExit(f"{entry_id}에서 단백질 또는 리간드 {ligand_code}를 찾지 못했습니다")
 
     centre = [sum(point[axis] for _, point in protein) / len(protein) for axis in range(3)]
-    points = surface_points(protein)
+    points = surface_points(protein, ligand)
     in_pocket = find_pocket_points(points, ligand)
 
     # 표면 점이 목표치를 넘으면 포켓 밖 점만 솎아 내어 포켓 밀도를 지킨다

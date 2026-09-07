@@ -82,7 +82,7 @@ html[data-theme="dark"] .landing-body {
   }
 
   span:first-child {
-    color: var(--global-theme-color);
+    color: var(--global-theme-text-color);
   }
 }
 
@@ -115,7 +115,7 @@ html[data-theme="dark"] .landing-body {
 .label {
   @include type-eyebrow;
   margin-bottom: $space-sm;
-  color: var(--global-theme-color);
+  color: var(--global-theme-text-color);
 }
 
 /* 히어로 */
@@ -250,6 +250,123 @@ html[data-theme="dark"] .landing-body {
   }
 }
 
+// 손가락으로 누르는 화면에서는 링크가 최소 크기를 갖도록 한다
+@media (pointer: coarse) {
+  .post-tags a,
+  .post-list .post-tags a,
+  .panel-links a,
+  .record-list a,
+  .navbar-nav .nav-link,
+  .d-flex.flex-wrap > a,
+  .card .title a,
+  .container-links a,
+  #toc-sidebar a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  .post-tags a,
+  .panel-links a {
+    padding-right: $space-xs;
+  }
+
+  // 메뉴 여닫기 버튼은 문장 속 링크와 달리 크기를 키워도 배치가 흐트러지지 않는다
+  .navbar-toggler {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+// 키보드 사용자가 내비게이션을 건너뛸 수 있게 한다. 평소에는 화면 밖에 둔다
+.skip-link {
+  position: fixed;
+  top: $space-xs;
+  left: $space-xs;
+  z-index: 100;
+  padding: $space-xs $space-md;
+  border-radius: $radius-md;
+  background-color: var(--global-bg-color);
+  border: 1px solid var(--global-theme-color);
+  color: var(--global-theme-text-color);
+  font-weight: 500;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/*******************************************************************************
+ * 내부 페이지도 랜딩과 같은 타이포그래피 규칙을 따르게 한다.
+ ******************************************************************************/
+
+// 큰 제목일수록 자간을 좁히고 굵기를 올려 랜딩과 같은 인상을 만든다
+.post-title,
+.post .post-title,
+article h1 {
+  font-weight: $type-headline-weight;
+  letter-spacing: $type-display-md-tracking;
+}
+
+.post-list h2,
+.post-list h3,
+.card-title,
+article h2 {
+  font-weight: $type-card-title-weight;
+  letter-spacing: $type-headline-tracking;
+}
+
+article h3,
+article h4 {
+  font-weight: $type-card-title-weight;
+  letter-spacing: $type-subhead-tracking;
+}
+
+// CV 항목 제목은 의미상 h3이지만 크기는 목록 항목에 맞춘다
+.cv h3.title,
+.card h3.title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: $type-subhead-tracking;
+  color: var(--global-text-color);
+  margin-bottom: $space-xxs;
+}
+
+// 그 아래 부가 정보는 제목이 아니므로 본문 색과 크기를 쓴다
+.cv p.ml-1,
+.card p.ml-1 {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin-bottom: $space-xxs;
+  color: var(--global-text-color-light);
+}
+
+// 목록의 날짜와 부가 정보는 데이터 라벨 규칙을 따른다
+.post-meta,
+.post-tags {
+  @include type-eyebrow;
+  text-transform: none;
+}
+
+// 목록 페이지는 넓게 쓰되 글 본문은 읽기 편한 폭으로 제한한다
+article.post-content {
+  // 17px 본문에서 한 줄이 65~75자에 들어오는 폭
+  max-width: 40rem;
+  // 가운데로 밀리지 않고 제목과 같은 세로선에서 시작하게 한다
+  margin-left: 0;
+  margin-right: auto;
+}
+
+// 표와 코드, 그림은 넓게 써야 읽히므로 제한에서 벗어나게 한다
+article.post-content table,
+article.post-content pre,
+article.post-content figure,
+article.post-content .highlight {
+  max-width: none;
+}
+
 /* 인덱스와 본문 */
 
 .landing-shell {
@@ -292,11 +409,11 @@ html[data-theme="dark"] .landing-body {
 
   li a.is-active {
     border-left-color: var(--global-theme-color);
-    color: var(--global-theme-color);
+    color: var(--global-theme-text-color);
   }
 
   li a.is-active .mono {
-    color: var(--global-theme-color);
+    color: var(--global-theme-text-color);
   }
 
   @media (max-width: $bp-tablet) {

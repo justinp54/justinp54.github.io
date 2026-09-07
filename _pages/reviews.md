@@ -10,6 +10,11 @@ pagination:
 
 <div class="post">
 
+<div class="header-bar">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <p class="post-description">Structured reading notes on machine learning and bioinformatics papers.</p>
+</div>
+
 {% assign paper_reviews = site.reviews | sort: "date" | reverse %}
 
 <div class="p-3 mb-4 rounded border">
@@ -51,7 +56,7 @@ pagination:
             <div class="col-md-12">
               <div class="card-body">
                 <div class="float-right"><i class="fa-solid fa-thumbtack fa-xs"></i></div>
-                <h3 class="card-title text-lowercase">{{ review.title }}</h3>
+                <h2 class="card-title text-lowercase">{{ review.title }}</h2>
                 <p class="card-text">{{ review.description }}</p>
                 {% assign read_time = review.content | number_of_words | divided_by: 180 | plus: 1 %}
                 {% assign year = review.date | date: "%Y" %}
@@ -83,7 +88,7 @@ pagination:
   <li>
     {% if review.thumbnail %}<div class="row"><div class="col-sm-9">{% endif %}
 
-    <h3>
+    <h2>
       {% if review.depth %}<span class="review-depth review-depth-{{ review.depth }}">{{ review.depth }}</span>{% endif %}
       {% if review.redirect == blank %}
         <a class="post-title" href="{{ review.url | relative_url }}">{{ review.title }}</a>
@@ -95,7 +100,7 @@ pagination:
       {% else %}
         <a class="post-title" href="{{ review.redirect | relative_url }}">{{ review.title }}</a>
       {% endif %}
-    </h3>
+    </h2>
 
     <p>{{ review.description }}</p>
 
