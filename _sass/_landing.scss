@@ -250,6 +250,20 @@ html[data-theme="dark"] .landing-body {
   }
 }
 
+// 목록 페이지는 넓게 쓰되 긴 글의 본문은 읽기 편한 폭으로 제한한다
+.post .post-content,
+.post > p,
+.post > ul,
+.post > ol,
+.post > h1,
+.post > h2,
+.post > h3,
+.post > h4,
+.post > blockquote,
+.post > table {
+  max-width: 42rem;
+}
+
 /* 인덱스와 본문 */
 
 .landing-shell {
