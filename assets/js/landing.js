@@ -15,7 +15,10 @@
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) setActiveIndex(entry.target.id);
+        if (!entry.isIntersecting) return;
+        setActiveIndex(entry.target.id);
+        // 히어로를 벗어나면 배경 구조를 전면으로 올린다
+        stage?.classList.toggle("is-engaged", entry.target.id !== "top");
       });
     },
     { rootMargin: "-40% 0px -55% 0px" }

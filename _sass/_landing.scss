@@ -19,12 +19,21 @@
   opacity: 0;
   transition: opacity 0.8s ease;
 
+  // 본문과 만나는 왼쪽 가장자리는 서서히 사라지게 하여 글자를 덮지 않는다
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 34%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 34%);
+
   @media (max-width: $bp-tablet) {
     display: none;
   }
 }
 
 .landing-stage.is-ready {
+  opacity: 0.35;
+}
+
+// 히어로를 벗어나면 구조가 전면으로 나온다
+.landing-stage.is-ready.is-engaged {
   opacity: 1;
 }
 
@@ -111,6 +120,10 @@
   flex: 0 0 auto;
   width: 9rem;
   margin: 0;
+
+  background-color: var(--global-bg-color);
+  border-radius: $radius-lg;
+  box-shadow: 0 0 0 6px var(--global-bg-color);
 
   img {
     width: 100%;

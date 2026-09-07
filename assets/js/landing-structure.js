@@ -1,4 +1,4 @@
-// 랜딩 배경의 단백질 구조. 백본은 옅은 관으로, 리간드는 원자와 결합으로 그린다.
+// 랜딩 배경의 단백질 구조. 표면은 점구름으로, 리간드는 원자와 결합으로 그린다.
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.164.1/three.module.min.js";
 
 const stage = document.querySelector("[data-landing-stage]");
@@ -27,9 +27,12 @@ async function init(dataUrl) {
   const model = new THREE.Group();
   scene.add(model);
 
-  buildBackbone(model, data.segments);
-  buildPocket(model, data.segments);
+  model.add(dotCloud(data.surface, { color: 0x6b7280, size: 0.9, opacity: 0.72 }));
+  model.add(dotCloud(data.pocket, { color: 0x09ad94, size: 1.25, opacity: 1 }));
   buildLigand(model, data.ligand, data.bonds);
+
+  // 카메라가 향할 지점은 리간드 무게중심, 즉 결합 포켓이다
+  const pocketCenter = centroid(data.ligand);
 
   // 막관통 나선 다발이 옆에서 보이도록 세운다
   model.rotation.x = -Math.PI / 2 + 0.15;
@@ -39,16 +42,34 @@ async function init(dataUrl) {
     const { clientWidth: width, clientHeight: height } = stage;
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
-    camera.position.set(0, 0, 130);
     camera.updateProjectionMatrix();
   };
   resize();
   window.addEventListener("resize", resize);
 
+  // 스크롤 진행도는 landing.js가 무대에 실어 보낸다
+  let progress = 0;
+  let target = 0;
+  stage.addEventListener("stagemorph", (event) => {
+    target = Math.min(Math.max(event.detail.morph, 0), 1);
+  });
+
+  const origin = new THREE.Vector3(0, 0, 0);
+  const look = new THREE.Vector3();
   let spin = 0;
+
   const tick = () => {
-    spin += 0.0016;
+    // 스크롤이 멈춰도 부드럽게 따라가도록 목표값에 서서히 다가간다
+    progress += (target - progress) * 0.06;
+    const eased = progress * progress * (3 - 2 * progress);
+
+    spin += 0.0016 * (1 - eased * 0.7);
     model.rotation.y = spin;
+
+    camera.position.set(0, 0, 205 - eased * 70);
+    look.lerpVectors(origin, pocketCenter.clone().applyEuler(model.rotation), eased);
+    camera.lookAt(look);
+
     renderer.render(scene, camera);
     requestAnimationFrame(tick);
   };
@@ -57,23 +78,44 @@ async function init(dataUrl) {
   stage.classList.add("is-ready");
 }
 
-function buildBackbone(model, segments) {
-  const material = new THREE.MeshBasicMaterial({ color: 0xc2c5c9, transparent: true, opacity: 0.6 });
-  segments.forEach((segment) => {
-    const curve = new THREE.CatmullRomCurve3(segment.map(([x, y, z]) => new THREE.Vector3(x, y, z)));
-    model.add(new THREE.Mesh(new THREE.TubeGeometry(curve, segment.length * 6, 0.5, 6, false), material));
-  });
+function centroid(atoms) {
+  const sum = atoms.reduce((acc, [x, y, z]) => [acc[0] + x, acc[1] + y, acc[2] + z], [0, 0, 0]);
+  return new THREE.Vector3(...sum.map((value) => value / atoms.length));
 }
 
-function buildPocket(model, segments) {
-  const material = new THREE.MeshBasicMaterial({ color: 0x09ad94, transparent: true, opacity: 0.85 });
-  const geometry = new THREE.SphereGeometry(0.55, 10, 10);
-  segments.flat().forEach(([x, y, z, inPocket]) => {
-    if (!inPocket) return;
-    const marker = new THREE.Mesh(geometry, material);
-    marker.position.set(x, y, z);
-    model.add(marker);
-  });
+function dotCloud(points, { color, size, opacity }) {
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(points.flat(), 3));
+  return new THREE.Points(
+    geometry,
+    new THREE.PointsMaterial({
+      color,
+      size,
+      sizeAttenuation: true,
+      map: dotTexture(),
+      transparent: true,
+      opacity,
+      depthWrite: false,
+      fog: false,
+    })
+  );
+}
+
+// 사각형 기본 스프라이트 대신 부드러운 원형 점을 쓴다
+function dotTexture() {
+  if (dotTexture.cached) return dotTexture.cached;
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const context = canvas.getContext("2d");
+  const gradient = context.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  gradient.addColorStop(0, "rgba(255,255,255,1)");
+  gradient.addColorStop(0.55, "rgba(255,255,255,0.85)");
+  gradient.addColorStop(1, "rgba(255,255,255,0)");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, size, size);
+  dotTexture.cached = new THREE.CanvasTexture(canvas);
+  return dotTexture.cached;
 }
 
 function buildLigand(model, atoms, bonds) {
