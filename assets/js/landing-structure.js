@@ -10,8 +10,8 @@ if (stage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 // 원소별 색은 화학 관례를 따르되, 탄소만 배경에 맞춰 밝기를 뒤집는다
 const ELEMENT_COLORS = { N: "#4a86e8", O: "#e05a48", F: "#3fae7a", S: "#d8a92b" };
 const PALETTES = {
-  light: { carbon: 0x16181c, surface: 0x6b7280, surfaceOpacity: 0.72 },
-  dark: { carbon: 0xe8eaed, surface: 0xa8afb8, surfaceOpacity: 0.6 },
+  light: { carbon: 0x16181c, surface: 0x6b7280, surfaceOpacity: 0.72, pocket: 0x09ad94 },
+  dark: { carbon: 0xf2f4f6, surface: 0xdfe3e8, surfaceOpacity: 0.9, pocket: 0x3fdcc0 },
 };
 
 function currentTheme() {
@@ -37,7 +37,8 @@ async function init(dataUrl) {
 
   const surface = dotCloud(data.surface, { color: PALETTES.light.surface, size: 0.9, opacity: 0.72 });
   model.add(surface);
-  model.add(dotCloud(data.pocket, { color: 0x09ad94, size: 1.25, opacity: 1 }));
+  const pocket = dotCloud(data.pocket, { color: PALETTES.light.pocket, size: 1.25, opacity: 1 });
+  model.add(pocket);
   const carbonMaterials = buildLigand(model, data.ligand, data.bonds);
 
   // 사용자가 테마를 바꾸면 탄소와 표면 색을 함께 뒤집는다
@@ -45,6 +46,7 @@ async function init(dataUrl) {
     const palette = PALETTES[currentTheme()];
     surface.material.color.setHex(palette.surface);
     surface.material.opacity = palette.surfaceOpacity;
+    pocket.material.color.setHex(palette.pocket);
     carbonMaterials.forEach((entry) => {
       if (entry.mesh) {
         const color = new THREE.Color(palette.carbon);
