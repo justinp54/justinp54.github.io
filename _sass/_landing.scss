@@ -29,7 +29,9 @@ html[data-theme="dark"] .landing-body {
   );
 
   @media (max-width: $bp-tablet) {
-    background: rgba(var(--landing-scrim-color), 0.86);
+    background: rgba(var(--landing-scrim-color), 0.62);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
   }
 }
 
@@ -63,7 +65,8 @@ html[data-theme="dark"] .landing-body {
 
 // 구조 출처는 데이터 라벨 규칙에 맞춰 모노스페이스로 적는다
 .stage-caption {
-  position: absolute;
+  position: fixed;
+  z-index: 2;
   right: $space-xl;
   // 맨 위로 가기 버튼을 피해 위로 올린다
   bottom: 5.5rem;

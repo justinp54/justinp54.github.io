@@ -18,11 +18,15 @@ const QUALITY = IS_COMPACT
 const ELEMENT_COLORS = { N: "#4a86e8", O: "#e05a48", F: "#3fae7a", S: "#d8a92b" };
 const PALETTES = {
   light: { carbon: 0x16181c, surface: 0x6b7280, surfaceOpacity: 0.72, pocket: 0x09ad94 },
+  lightCompact: { carbon: 0x16181c, surface: 0x3f4650, surfaceOpacity: 0.95, pocket: 0x00806c },
   dark: { carbon: 0xf2f4f6, surface: 0xdfe3e8, surfaceOpacity: 0.9, pocket: 0x3fdcc0 },
+  darkCompact: { carbon: 0xffffff, surface: 0xffffff, surfaceOpacity: 1, pocket: 0x5cf0d4 },
 };
 
-function currentTheme() {
-  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+function currentPalette() {
+  const dark = document.documentElement.dataset.theme === "dark";
+  if (IS_COMPACT) return dark ? PALETTES.darkCompact : PALETTES.lightCompact;
+  return dark ? PALETTES.dark : PALETTES.light;
 }
 
 async function init(dataUrl) {
@@ -55,7 +59,7 @@ async function init(dataUrl) {
 
   // 사용자가 테마를 바꾸면 탄소와 표면 색을 함께 뒤집는다
   const applyTheme = () => {
-    const palette = PALETTES[currentTheme()];
+    const palette = currentPalette();
     surface.material.color.setHex(palette.surface);
     surface.material.opacity = palette.surfaceOpacity;
     pocket.material.color.setHex(palette.pocket);
@@ -131,10 +135,10 @@ async function init(dataUrl) {
 }
 
 function addCaption(data) {
-  const caption = document.createElement("p");
-  caption.className = "stage-caption mono";
+  const caption = document.querySelector("[data-stage-caption]");
+  if (!caption) return;
   caption.innerHTML = `<span>RCSB PDB &middot; ${data.entry}</span><span>D2 dopamine receptor + risperidone</span>`;
-  stage.appendChild(caption);
+  caption.hidden = false;
 }
 
 // 점이 목표치보다 많으면 고르게 솎아 낸다
