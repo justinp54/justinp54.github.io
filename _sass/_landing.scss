@@ -250,18 +250,49 @@ html[data-theme="dark"] .landing-body {
   }
 }
 
-// 목록 페이지는 넓게 쓰되 긴 글의 본문은 읽기 편한 폭으로 제한한다
-.post .post-content,
-.post > p,
-.post > ul,
-.post > ol,
-.post > h1,
-.post > h2,
-.post > h3,
-.post > h4,
-.post > blockquote,
-.post > table {
-  max-width: 42rem;
+/*******************************************************************************
+ * 내부 페이지도 랜딩과 같은 타이포그래피 규칙을 따르게 한다.
+ ******************************************************************************/
+
+// 큰 제목일수록 자간을 좁히고 굵기를 올려 랜딩과 같은 인상을 만든다
+.post-title,
+.post .post-title,
+article h1 {
+  font-weight: $type-headline-weight;
+  letter-spacing: $type-display-md-tracking;
+}
+
+.post-list h3,
+.card-title,
+article h2 {
+  font-weight: $type-card-title-weight;
+  letter-spacing: $type-headline-tracking;
+}
+
+article h3,
+article h4 {
+  font-weight: $type-card-title-weight;
+  letter-spacing: $type-subhead-tracking;
+}
+
+// 목록의 날짜와 부가 정보는 데이터 라벨 규칙을 따른다
+.post-meta,
+.post-tags {
+  @include type-eyebrow;
+  text-transform: none;
+}
+
+// 목록 페이지는 넓게 쓰되 글 본문은 읽기 편한 폭으로 제한한다
+article.post-content {
+  max-width: 46rem;
+}
+
+// 표와 코드, 그림은 넓게 써야 읽히므로 제한에서 벗어나게 한다
+article.post-content table,
+article.post-content pre,
+article.post-content figure,
+article.post-content .highlight {
+  max-width: none;
 }
 
 /* 인덱스와 본문 */
