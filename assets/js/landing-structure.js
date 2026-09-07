@@ -7,8 +7,16 @@ if (stage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   if (dataUrl) init(dataUrl).catch(() => stage.classList.add("is-failed"));
 }
 
-// 원소별 색은 화학 관례를 따른다
-const ELEMENT_COLORS = { C: "#16181c", N: "#2f6fd0", O: "#d0402f", F: "#3fae7a", S: "#d8a92b" };
+// 원소별 색은 화학 관례를 따르되, 탄소만 배경에 맞춰 밝기를 뒤집는다
+const ELEMENT_COLORS = { N: "#4a86e8", O: "#e05a48", F: "#3fae7a", S: "#d8a92b" };
+const PALETTES = {
+  light: { carbon: 0x16181c, surface: 0x6b7280, surfaceOpacity: 0.72 },
+  dark: { carbon: 0xe8eaed, surface: 0xa8afb8, surfaceOpacity: 0.6 },
+};
+
+function currentTheme() {
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+}
 
 async function init(dataUrl) {
   const response = await fetch(dataUrl);
@@ -27,9 +35,23 @@ async function init(dataUrl) {
   const model = new THREE.Group();
   scene.add(model);
 
-  model.add(dotCloud(data.surface, { color: 0x6b7280, size: 0.9, opacity: 0.72 }));
+  const surface = dotCloud(data.surface, { color: PALETTES.light.surface, size: 0.9, opacity: 0.72 });
+  model.add(surface);
   model.add(dotCloud(data.pocket, { color: 0x09ad94, size: 1.25, opacity: 1 }));
-  buildLigand(model, data.ligand, data.bonds);
+  const carbonMaterials = buildLigand(model, data.ligand, data.bonds);
+
+  // 사용자가 테마를 바꾸면 탄소와 표면 색을 함께 뒤집는다
+  const applyTheme = () => {
+    const palette = PALETTES[currentTheme()];
+    surface.material.color.setHex(palette.surface);
+    surface.material.opacity = palette.surfaceOpacity;
+    carbonMaterials.forEach((material) => material.color.setHex(palette.carbon));
+  };
+  applyTheme();
+  new MutationObserver(applyTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
 
   // 카메라가 향할 지점은 리간드 무게중심, 즉 결합 포켓이다
   const pocketCenter = centroid(data.ligand);
@@ -75,7 +97,15 @@ async function init(dataUrl) {
   };
   tick();
 
+  addCaption(data);
   stage.classList.add("is-ready");
+}
+
+function addCaption(data) {
+  const caption = document.createElement("p");
+  caption.className = "stage-caption mono";
+  caption.innerHTML = `<span>RCSB PDB &middot; ${data.entry}</span><span>D2 dopamine receptor + risperidone</span>`;
+  stage.appendChild(caption);
 }
 
 function centroid(atoms) {
@@ -119,15 +149,19 @@ function dotTexture() {
 }
 
 function buildLigand(model, atoms, bonds) {
+  const carbonMaterials = [];
   const sphere = new THREE.SphereGeometry(0.45, 14, 14);
   atoms.forEach(([x, y, z, element]) => {
-    const color = new THREE.Color(ELEMENT_COLORS[element] || ELEMENT_COLORS.C);
-    const atom = new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color }));
+    const known = ELEMENT_COLORS[element];
+    const material = new THREE.MeshBasicMaterial({ color: new THREE.Color(known || PALETTES.light.carbon) });
+    if (!known) carbonMaterials.push(material);
+    const atom = new THREE.Mesh(sphere, material);
     atom.position.set(x, y, z);
     model.add(atom);
   });
 
-  const bondMaterial = new THREE.MeshBasicMaterial({ color: 0x16181c });
+  const bondMaterial = new THREE.MeshBasicMaterial({ color: PALETTES.light.carbon });
+  carbonMaterials.push(bondMaterial);
   const up = new THREE.Vector3(0, 1, 0);
   bonds.forEach(([i, j]) => {
     const start = new THREE.Vector3(...atoms[i].slice(0, 3));
@@ -137,4 +171,6 @@ function buildLigand(model, atoms, bonds) {
     bond.quaternion.setFromUnitVectors(up, end.clone().sub(start).normalize());
     model.add(bond);
   });
+
+  return carbonMaterials;
 }
