@@ -174,9 +174,18 @@ html[data-theme="dark"] .landing-body {
     display: block;
   }
 
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+
   @media (max-width: $bp-mobile-lg) {
     width: 6rem;
   }
+}
+
+.landing-body.is-scrolled .hero-portrait {
+  opacity: 0;
+  transform: translateY(-0.75rem);
 }
 
 .scroll-cue {
