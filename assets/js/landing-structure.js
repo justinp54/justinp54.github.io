@@ -7,6 +7,13 @@ if (stage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   if (dataUrl) init(dataUrl).catch(() => stage.classList.add("is-failed"));
 }
 
+// 좁은 화면이나 정밀하지 않은 포인터를 쓰는 기기는 가벼운 설정으로 그린다
+const IS_COMPACT = window.matchMedia("(max-width: 1024px)").matches || window.matchMedia("(pointer: coarse)").matches;
+
+const QUALITY = IS_COMPACT
+  ? { surfacePoints: 9000, dotSize: 1.4, pocketSize: 1.8, pixelRatio: 1.2, fitMargin: 0.78 }
+  : { surfacePoints: Infinity, dotSize: 0.9, pocketSize: 1.25, pixelRatio: 1.5, fitMargin: 1.18 };
+
 // 원소별 색은 화학 관례를 따르되, 탄소만 배경에 맞춰 밝기를 뒤집는다
 const ELEMENT_COLORS = { N: "#4a86e8", O: "#e05a48", F: "#3fae7a", S: "#d8a92b" };
 const PALETTES = {
@@ -28,16 +35,21 @@ async function init(dataUrl) {
   stage.appendChild(canvas);
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, QUALITY.pixelRatio));
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 2000);
   const model = new THREE.Group();
   scene.add(model);
 
-  const surface = dotCloud(data.surface, { color: PALETTES.light.surface, size: 0.9, opacity: 0.72 });
+  const surface = dotCloud(thin(data.surface, QUALITY.surfacePoints), {
+    color: PALETTES.light.surface,
+    size: QUALITY.dotSize,
+    opacity: 0.72,
+  });
   model.add(surface);
-  const pocket = dotCloud(data.pocket, { color: PALETTES.light.pocket, size: 1.25, opacity: 1 });
+  // 포켓과 리간드는 이야기의 핵심이므로 줄이지 않는다
+  const pocket = dotCloud(data.pocket, { color: PALETTES.light.pocket, size: QUALITY.pocketSize, opacity: 1 });
   model.add(pocket);
   const carbonMaterials = buildLigand(model, data.ligand, data.bonds);
 
@@ -65,16 +77,20 @@ async function init(dataUrl) {
 
   // 카메라가 향할 지점은 리간드 무게중심, 즉 결합 포켓이다
   const pocketCenter = centroid(data.ligand);
+  const radius = boundingRadius(data.surface);
 
   // 막관통 나선 다발이 옆에서 보이도록 세운다
   model.rotation.x = -Math.PI / 2 + 0.15;
   model.rotation.z = -0.4;
 
+  // 화면이 세로로 길수록 구조가 잘리므로 비율에 맞춰 거리를 다시 잡는다
+  let farDistance = 200;
   const resize = () => {
     const { clientWidth: width, clientHeight: height } = stage;
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    farDistance = fitDistance(radius, camera) * QUALITY.fitMargin;
   };
   resize();
   window.addEventListener("resize", resize);
@@ -102,7 +118,7 @@ async function init(dataUrl) {
     spin += 0.0016 * (1 - eased * 0.7);
     model.rotation.y = spin;
 
-    camera.position.set(0, 0, 205 - eased * 70);
+    camera.position.set(0, 0, farDistance * (1 - eased * 0.42));
     look.lerpVectors(origin, pocketCenter.clone().applyEuler(model.rotation), eased);
     camera.lookAt(look);
 
@@ -119,6 +135,25 @@ function addCaption(data) {
   caption.className = "stage-caption mono";
   caption.innerHTML = `<span>RCSB PDB &middot; ${data.entry}</span><span>D2 dopamine receptor + risperidone</span>`;
   stage.appendChild(caption);
+}
+
+// 점이 목표치보다 많으면 고르게 솎아 낸다
+function thin(points, limit) {
+  if (points.length <= limit) return points;
+  const step = points.length / limit;
+  const kept = [];
+  for (let index = 0; index < limit; index++) kept.push(points[Math.floor(index * step)]);
+  return kept;
+}
+
+// 구조가 화면 안에 들어오는 최소 거리를 가로와 세로 양쪽으로 구한다
+function fitDistance(radius, camera) {
+  const half = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+  return Math.max(radius / half, radius / (half * camera.aspect));
+}
+
+function boundingRadius(points) {
+  return Math.sqrt(points.reduce((max, [x, y, z]) => Math.max(max, x * x + y * y + z * z), 0));
 }
 
 function centroid(atoms) {
