@@ -7,25 +7,27 @@ if (stage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   if (dataUrl) init(dataUrl).catch(() => stage.classList.add("is-failed"));
 }
 
-// 좁은 화면이나 정밀하지 않은 포인터를 쓰는 기기는 가벼운 설정으로 그린다
-const IS_COMPACT = window.matchMedia("(max-width: 1024px)").matches || window.matchMedia("(pointer: coarse)").matches;
+// 성능은 터치 기기까지 낮추되, 색과 크기는 화면이 실제로 좁을 때만 바꾼다
+const IS_NARROW = window.matchMedia("(max-width: 1024px)").matches;
+const IS_LOW_POWER = IS_NARROW || window.matchMedia("(pointer: coarse)").matches;
 
-const QUALITY = IS_COMPACT
-  ? { surfacePoints: 9000, dotSize: 1.4, pocketSize: 1.8, pixelRatio: 1.2, fitMargin: 0.78 }
-  : { surfacePoints: Infinity, dotSize: 0.9, pocketSize: 1.25, pixelRatio: 1.5, fitMargin: 1.18 };
+const QUALITY = IS_LOW_POWER ? { surfacePoints: 11000, pixelRatio: 1.2 } : { surfacePoints: Infinity, pixelRatio: 1.5 };
+
+// 배치는 CSS와 같은 기준으로 나눠야 색과 레이아웃이 어긋나지 않는다
+const LAYOUT = IS_NARROW ? { dotSize: 1.6, pocketSize: 2.1, fitMargin: 0.78 } : { dotSize: 0.9, pocketSize: 1.25, fitMargin: 1.18 };
 
 // 원소별 색은 화학 관례를 따르되, 탄소만 배경에 맞춰 밝기를 뒤집는다
 const ELEMENT_COLORS = { N: "#4a86e8", O: "#e05a48", F: "#3fae7a", S: "#d8a92b" };
 const PALETTES = {
   light: { carbon: 0x16181c, surface: 0x6b7280, surfaceOpacity: 0.72, pocket: 0x09ad94 },
-  lightCompact: { carbon: 0x16181c, surface: 0x4b525c, surfaceOpacity: 0.9, pocket: 0x00806c },
+  lightCompact: { carbon: 0x000000, surface: 0x2b3038, surfaceOpacity: 1, pocket: 0x00705e },
   dark: { carbon: 0xf2f4f6, surface: 0xdfe3e8, surfaceOpacity: 0.9, pocket: 0x3fdcc0 },
-  darkCompact: { carbon: 0xffffff, surface: 0xffffff, surfaceOpacity: 1, pocket: 0x5cf0d4 },
+  darkCompact: { carbon: 0xffffff, surface: 0xffffff, surfaceOpacity: 1, pocket: 0x7dffe4 },
 };
 
 function currentPalette() {
   const dark = document.documentElement.dataset.theme === "dark";
-  if (IS_COMPACT) return dark ? PALETTES.darkCompact : PALETTES.lightCompact;
+  if (IS_NARROW) return dark ? PALETTES.darkCompact : PALETTES.lightCompact;
   return dark ? PALETTES.dark : PALETTES.light;
 }
 
@@ -48,12 +50,12 @@ async function init(dataUrl) {
 
   const surface = dotCloud(thin(data.surface, QUALITY.surfacePoints), {
     color: PALETTES.light.surface,
-    size: QUALITY.dotSize,
+    size: LAYOUT.dotSize,
     opacity: 0.72,
   });
   model.add(surface);
   // 포켓과 리간드는 이야기의 핵심이므로 줄이지 않는다
-  const pocket = dotCloud(data.pocket, { color: PALETTES.light.pocket, size: QUALITY.pocketSize, opacity: 1 });
+  const pocket = dotCloud(data.pocket, { color: PALETTES.light.pocket, size: LAYOUT.pocketSize, opacity: 1 });
   model.add(pocket);
   const carbonMaterials = buildLigand(model, data.ligand, data.bonds);
 
@@ -94,7 +96,7 @@ async function init(dataUrl) {
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    farDistance = fitDistance(radius, camera) * QUALITY.fitMargin;
+    farDistance = fitDistance(radius, camera) * LAYOUT.fitMargin;
   };
   resize();
   window.addEventListener("resize", resize);
