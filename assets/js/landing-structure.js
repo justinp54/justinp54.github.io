@@ -102,8 +102,7 @@ async function init(dataUrl) {
   const radius = boundingRadius(data.surface);
 
   // 막관통 나선 다발이 옆에서 보이도록 세운다
-  const BASE_PITCH = -Math.PI / 2 + 0.15;
-  model.rotation.x = BASE_PITCH;
+  model.rotation.x = -Math.PI / 2 + 0.15;
   model.rotation.z = -0.4;
 
   const drag = grabbing(stage);
@@ -129,6 +128,8 @@ async function init(dataUrl) {
 
   const origin = new THREE.Vector3(0, 0, 0);
   const look = new THREE.Vector3();
+  const offset = new THREE.Vector3();
+  const orbit = new THREE.Euler(0, 0, 0, "YXZ");
   let spin = 0;
 
   const tick = () => {
@@ -140,14 +141,16 @@ async function init(dataUrl) {
     progress += (target - progress) * 0.06;
     const eased = progress * progress * (3 - 2 * progress);
 
-    // 손을 떼면 기울기만 제자리로 돌아오고, 좌우 회전은 그 자리에서 자전을 이어 간다
-    drag.settle();
+    // 잡고 있는 동안은 자전을 멈춰 손이 미는 대로만 움직이게 한다
+    drag.step();
     spin += 0.0016 * (1 - eased * 0.7) * (drag.held ? 0 : 1);
-    model.rotation.y = spin + drag.yaw;
-    model.rotation.x = BASE_PITCH + drag.pitch;
+    model.rotation.y = spin;
 
-    camera.position.set(0, 0, farDistance * (1 - eased * 0.42));
+    // 모델을 돌리지 않고 카메라가 바라보는 지점 둘레를 돌아, 화면 중심이 밀리지 않는다
     look.lerpVectors(origin, pocketCenter.clone().applyEuler(model.rotation), eased);
+    orbit.set(drag.pitch, drag.yaw, 0, "YXZ");
+    offset.set(0, 0, farDistance * (1 - eased * 0.42)).applyEuler(orbit);
+    camera.position.copy(look).add(offset);
     camera.lookAt(look);
 
     renderer.render(scene, camera);
@@ -161,7 +164,10 @@ async function init(dataUrl) {
 // 안내를 두지 않고 발견한 사람만 쓰는 장치라서, 커서 모양도 바꾸지 않는다
 function grabbing(stage) {
   const PITCH_LIMIT = 0.55;
-  const state = { yaw: 0, pitch: 0, held: false };
+  // 잡고 있을 때는 손을 조금 늦게 따라오고, 놓으면 한참 미끄러진 뒤 멈춘다
+  const HELD_DAMPING = 0.82;
+  const FREE_DAMPING = 0.965;
+  const state = { yaw: 0, pitch: 0, held: false, spinRate: 0, tiltRate: 0 };
   let last = null;
 
   // 글과 링크 위에서 시작한 드래그는 선택과 이동을 방해하므로 받지 않는다.
@@ -184,10 +190,11 @@ function grabbing(stage) {
     document.body.classList.add("is-grabbing");
   });
 
+  // 손이 민 만큼을 속도에 더하고 각도는 그 속도로 따라가야, 무게가 있는 것처럼 움직인다
   window.addEventListener("pointermove", (event) => {
     if (!last) return;
-    state.yaw += (event.clientX - last.x) * 0.006;
-    state.pitch = clamp(state.pitch + (event.clientY - last.y) * 0.005, -PITCH_LIMIT, PITCH_LIMIT);
+    state.spinRate += (event.clientX - last.x) * 0.0011;
+    state.tiltRate += (event.clientY - last.y) * 0.0009;
     last = { x: event.clientX, y: event.clientY };
   });
 
@@ -202,8 +209,16 @@ function grabbing(stage) {
   window.addEventListener("pointercancel", release);
   window.addEventListener("blur", release);
 
-  state.settle = () => {
-    if (!state.held) state.pitch += (0 - state.pitch) * 0.03;
+  state.step = () => {
+    state.yaw += state.spinRate;
+    state.pitch = clamp(state.pitch + state.tiltRate, -PITCH_LIMIT, PITCH_LIMIT);
+    if (state.pitch === PITCH_LIMIT || state.pitch === -PITCH_LIMIT) state.tiltRate = 0;
+
+    const damping = state.held ? HELD_DAMPING : FREE_DAMPING;
+    state.spinRate *= damping;
+    state.tiltRate *= damping;
+    // 미끄러짐이 잦아든 뒤에야 기울기가 원래 자세로 돌아가야 두 움직임이 겹치지 않는다
+    if (!state.held && Math.abs(state.tiltRate) < 0.0005) state.pitch += (0 - state.pitch) * 0.012;
   };
   return state;
 }
