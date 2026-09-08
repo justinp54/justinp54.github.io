@@ -43,7 +43,8 @@
         duration: 0.6,
         ease: "power2.out",
         stagger: 0.06,
-        scrollTrigger: { trigger: panel, start: "top 80%", once: true },
+        // 올라갔다 다시 내려와도 같은 연출을 보도록 되감았다가 다시 재생한다
+        scrollTrigger: { trigger: panel, start: "top 80%", toggleActions: "play none none reverse" },
       }
     );
   });
