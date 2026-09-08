@@ -61,6 +61,16 @@ html[data-theme="dark"] .landing-body {
   opacity: 1;
 }
 
+// 구조를 직접 돌리는 동안에는 가장 또렷하게 보여 준다
+.landing-stage.is-ready.is-grabbed {
+  opacity: 1;
+}
+
+// 드래그가 배경에서 시작해 글 위를 지나가도 글자가 선택되지 않게 한다
+body.is-grabbing {
+  user-select: none;
+}
+
 // 구조 출처는 데이터 라벨 규칙에 맞춰 모노스페이스로 적는다
 .stage-caption {
   position: fixed;

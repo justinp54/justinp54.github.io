@@ -102,8 +102,11 @@ async function init(dataUrl) {
   const radius = boundingRadius(data.surface);
 
   // 막관통 나선 다발이 옆에서 보이도록 세운다
-  model.rotation.x = -Math.PI / 2 + 0.15;
+  const BASE_PITCH = -Math.PI / 2 + 0.15;
+  model.rotation.x = BASE_PITCH;
   model.rotation.z = -0.4;
+
+  const drag = grabbing(stage);
 
   // 화면이 세로로 길수록 구조가 잘리므로 비율에 맞춰 거리를 다시 잡는다
   let farDistance = 200;
@@ -137,8 +140,11 @@ async function init(dataUrl) {
     progress += (target - progress) * 0.06;
     const eased = progress * progress * (3 - 2 * progress);
 
-    spin += 0.0016 * (1 - eased * 0.7);
-    model.rotation.y = spin;
+    // 손을 떼면 기울기만 제자리로 돌아오고, 좌우 회전은 그 자리에서 자전을 이어 간다
+    drag.settle();
+    spin += 0.0016 * (1 - eased * 0.7) * (drag.held ? 0 : 1);
+    model.rotation.y = spin + drag.yaw;
+    model.rotation.x = BASE_PITCH + drag.pitch;
 
     camera.position.set(0, 0, farDistance * (1 - eased * 0.42));
     look.lerpVectors(origin, pocketCenter.clone().applyEuler(model.rotation), eased);
@@ -150,6 +156,60 @@ async function init(dataUrl) {
 
   addCaption(data);
   stage.classList.add("is-ready");
+}
+
+// 안내를 두지 않고 발견한 사람만 쓰는 장치라서, 커서 모양도 바꾸지 않는다
+function grabbing(stage) {
+  const PITCH_LIMIT = 0.55;
+  const state = { yaw: 0, pitch: 0, held: false };
+  let last = null;
+
+  // 글과 링크 위에서 시작한 드래그는 선택과 이동을 방해하므로 받지 않는다.
+  // 구조를 나열해 걸러내면 문서가 바뀔 때 빠뜨리므로, 글이 실제로 차지한 자리를 잰다.
+  const TEXT = "h1, h2, h3, h4, h5, h6, p, li, a, button, input, textarea, select, label, dt, dd, blockquote, figcaption";
+  const onText = (x, y) =>
+    Array.from(document.querySelectorAll(TEXT)).some((node) => {
+      const box = node.getBoundingClientRect();
+      return box.width > 0 && box.height > 0 && x >= box.left && x <= box.right && y >= box.top && y <= box.bottom;
+    });
+
+  const overBackground = (event) => !isNarrow() && event.button === 0 && !onText(event.clientX, event.clientY);
+
+  window.addEventListener("pointerdown", (event) => {
+    if (!overBackground(event)) return;
+    event.preventDefault();
+    last = { x: event.clientX, y: event.clientY };
+    state.held = true;
+    stage.classList.add("is-grabbed");
+    document.body.classList.add("is-grabbing");
+  });
+
+  window.addEventListener("pointermove", (event) => {
+    if (!last) return;
+    state.yaw += (event.clientX - last.x) * 0.006;
+    state.pitch = clamp(state.pitch + (event.clientY - last.y) * 0.005, -PITCH_LIMIT, PITCH_LIMIT);
+    last = { x: event.clientX, y: event.clientY };
+  });
+
+  const release = () => {
+    if (!last) return;
+    last = null;
+    state.held = false;
+    stage.classList.remove("is-grabbed");
+    document.body.classList.remove("is-grabbing");
+  };
+  window.addEventListener("pointerup", release);
+  window.addEventListener("pointercancel", release);
+  window.addEventListener("blur", release);
+
+  state.settle = () => {
+    if (!state.held) state.pitch += (0 - state.pitch) * 0.03;
+  };
+  return state;
+}
+
+function clamp(value, low, high) {
+  return Math.min(Math.max(value, low), high);
 }
 
 function addCaption(data) {
